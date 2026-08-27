@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>账号登录 · 湖工商生活指南</title>
+  <title>账号 · 湖工商生活指南</title>
   <link rel="icon" href="assets/acm-logo.png">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/community.css">
@@ -14,66 +14,65 @@
 <body class="admin-body">
 
 <div class="auth-page">
-  <div class="auth-card" id="authCard">
+  <div class="auth-card">
 
-    <!-- 登录面板 -->
-    <div class="auth-panel" id="loginPanel">
-      <img src="assets/acm-logo.png" alt="ACM" class="auth-logo">
-      <h2 class="auth-title">湖工商生活指南</h2>
-      <p class="auth-sub">登录社区，发帖互动</p>
+    <!-- 顶部 Logo -->
+    <img src="assets/acm-logo.png" alt="ACM" class="auth-logo" style="display:block;margin:0 auto 6px;width:52px;height:52px;border-radius:12px;">
+    <h2 class="auth-title" style="text-align:center;">湖工商生活指南</h2>
+    <p style="text-align:center;font-size:0.85rem;color:var(--c-text-muted);margin:0 0 28px;">账号登录 · 发帖互动</p>
 
-      <form id="loginForm" autocomplete="off">
-        <div class="field">
-          <label for="l-username">账号</label>
-          <input type="text" id="l-username" name="username" placeholder="账号" required autofocus>
-        </div>
-        <div class="field">
-          <label for="l-password">密码</label>
-          <input type="password" id="l-password" name="password" placeholder="密码" required>
-        </div>
-        <div id="loginMsg" class="auth-msg"></div>
-        <button type="submit" class="btn btn-accent" style="width:100%; padding:12px;">
-          🔑 登录
-        </button>
-      </form>
+    <!-- 双入口并列 -->
+    <div class="auth-two-col">
 
-      <div class="auth-switch">
-        还没有账号？<a href="#" id="goRegister">立即注册</a>
+      <!-- 登录区 -->
+      <div class="auth-col">
+        <h3 class="auth-col-title">登录账号</h3>
+        <form id="loginForm" autocomplete="off">
+          <div class="field">
+            <label for="l-username">账号</label>
+            <input type="text" id="l-username" name="username" placeholder="账号" required autofocus>
+          </div>
+          <div class="field">
+            <label for="l-password">密码</label>
+            <input type="password" id="l-password" name="password" placeholder="密码" required>
+          </div>
+          <div id="loginMsg" class="auth-msg"></div>
+          <button type="submit" class="btn btn-accent" style="width:100%;padding:11px;">
+            🔑 登录
+          </button>
+        </form>
       </div>
+
+      <!-- 分隔线 -->
+      <div class="auth-divider"><span>或</span></div>
+
+      <!-- 注册区 -->
+      <div class="auth-col">
+        <h3 class="auth-col-title">注册新账号</h3>
+        <form id="registerForm" autocomplete="off">
+          <div class="field">
+            <label for="r-username">账号</label>
+            <input type="text" id="r-username" name="username" placeholder="2-20位，小写字母/数字/下划线" required>
+            <span class="field-hint">登录时使用，请记住</span>
+          </div>
+          <div class="field">
+            <label for="r-password">密码</label>
+            <input type="password" id="r-password" name="password" placeholder="至少 6 位" required>
+          </div>
+          <div class="field">
+            <label for="r-confirm">确认密码</label>
+            <input type="password" id="r-confirm" name="confirm" placeholder="再输一次密码" required>
+          </div>
+          <div id="registerMsg" class="auth-msg"></div>
+          <button type="submit" class="btn btn-accent" style="width:100%;padding:11px;">
+            ✨ 注册
+          </button>
+        </form>
+      </div>
+
     </div>
 
-    <!-- 注册面板 -->
-    <div class="auth-panel" id="registerPanel" style="display:none;">
-      <img src="assets/acm-logo.png" alt="ACM" class="auth-logo">
-      <h2 class="auth-title">加入社区</h2>
-      <p class="auth-sub">注册后可以发帖、点赞、评论</p>
-
-      <form id="registerForm" autocomplete="off">
-        <div class="field">
-          <label for="r-username">账号</label>
-          <input type="text" id="r-username" name="username" placeholder="2-20位，小写字母/数字/下划线" required>
-          <span class="field-hint">登录时使用，请记住</span>
-        </div>
-        <div class="field">
-          <label for="r-password">密码</label>
-          <input type="password" id="r-password" name="password" placeholder="至少 6 位" required>
-        </div>
-        <div class="field">
-          <label for="r-confirm">确认密码</label>
-          <input type="password" id="r-confirm" name="confirm" placeholder="再输一次密码" required>
-        </div>
-        <div id="registerMsg" class="auth-msg"></div>
-        <button type="submit" class="btn btn-accent" style="width:100%; padding:12px;">
-          ✨ 注册
-        </button>
-      </form>
-
-      <div class="auth-switch">
-        已有账号？<a href="#" id="goLogin">去登录</a>
-      </div>
-    </div>
-
-    <div style="text-align:center; margin-top:var(--sp-4); font-size:0.825rem;">
+    <div style="text-align:center;margin-top:20px;font-size:0.825rem;">
       <a href="community.html" style="color:var(--c-text-muted);">← 先看看社区</a>
     </div>
   </div>
@@ -82,93 +81,73 @@
 <script src="js/user.js"></script>
 <script>
 (function () {
-  const loginPanel = document.getElementById('loginPanel');
-  const registerPanel = document.getElementById('registerPanel');
-  const loginMsg = document.getElementById('loginMsg');
-  const registerMsg = document.getElementById('registerMsg');
-
   // 已登录直接去社区
-  if (User.isLoggedIn()) {
-    const sess = User.getSession();
+  if (User && User.isLoggedIn()) {
     location.href = 'community.html';
   }
-
-  /* 切换面板 */
-  document.getElementById('goRegister').addEventListener('click', (e) => {
-    e.preventDefault();
-    loginPanel.style.display = 'none';
-    registerPanel.style.display = '';
-    loginMsg.textContent = '';
-    loginMsg.className = 'auth-msg';
-  });
-
-  document.getElementById('goLogin').addEventListener('click', (e) => {
-    e.preventDefault();
-    registerPanel.style.display = 'none';
-    loginPanel.style.display = '';
-    registerMsg.textContent = '';
-    registerMsg.className = 'auth-msg';
-  });
 
   /* 登录 */
   document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const u = e.target.username.value.trim();
-    const p = e.target.password.value;
+    const u = document.getElementById('l-username').value.trim();
+    const p = document.getElementById('l-password').value;
     const btn = e.target.querySelector('button[type=submit]');
+    const msg = document.getElementById('loginMsg');
     btn.disabled = true;
     btn.textContent = '⏳ 登录中...';
-    loginMsg.textContent = '';
+    msg.textContent = '';
 
     const r = await User.login(u, p);
     btn.disabled = false;
     btn.textContent = '🔑 登录';
 
     if (r.ok) {
-      loginMsg.textContent = '✅ 登录成功，跳转中...';
-      loginMsg.className = 'auth-msg auth-msg-ok';
+      msg.textContent = '✅ 登录成功，跳转中...';
+      msg.className = 'auth-msg auth-msg-ok';
       setTimeout(() => location.href = 'community.html', 500);
     } else {
-      loginMsg.textContent = '❌ ' + r.message;
-      loginMsg.className = 'auth-msg auth-msg-err';
+      msg.textContent = '❌ ' + r.message;
+      msg.className = 'auth-msg auth-msg-err';
     }
   });
 
   /* 注册 */
   document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const u = e.target.username.value.trim();
-    const p = e.target.password.value;
-    const c = e.target.confirm.value;
+    const u = document.getElementById('r-username').value.trim();
+    const p = document.getElementById('r-password').value;
+    const c = document.getElementById('r-confirm').value;
     const btn = e.target.querySelector('button[type=submit]');
-    btn.disabled = true;
-    btn.textContent = '⏳ 注册中...';
-    registerMsg.textContent = '';
+    const msg = document.getElementById('registerMsg');
 
     if (p !== c) {
-      registerMsg.textContent = '❌ 两次密码不一致';
-      registerMsg.className = 'auth-msg auth-msg-err';
-      btn.disabled = false;
-      btn.textContent = '✨ 注册';
+      msg.textContent = '❌ 两次密码不一致';
+      msg.className = 'auth-msg auth-msg-err';
       return;
     }
+
+    btn.disabled = true;
+    btn.textContent = '⏳ 注册中...';
+    msg.textContent = '';
 
     const r = await User.register(u, p);
     btn.disabled = false;
     btn.textContent = '✨ 注册';
 
     if (r.ok) {
-      registerMsg.textContent = '✅ 注册成功！即将跳转登录...';
-      registerMsg.className = 'auth-msg auth-msg-ok';
-      setTimeout(() => {
-        registerPanel.style.display = 'none';
-        loginPanel.style.display = '';
-        document.getElementById('l-username').value = u;
-        registerMsg.textContent = '';
-      }, 1200);
+      // 注册成功 → 自动填入账号并切换到登录表单
+      document.getElementById('l-username').value = u;
+      document.getElementById('l-password').value = '';
+      document.getElementById('r-password').value = '';
+      document.getElementById('r-confirm').value = '';
+      msg.textContent = '✅ 注册成功！请填写密码登录';
+      msg.className = 'auth-msg auth-msg-ok';
+      // 滚动到左边登录区
+      document.getElementById('loginForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('l-password').focus();
     } else {
-      registerMsg.textContent = '❌ ' + r.message;
-      registerMsg.className = 'auth-msg auth-msg-err';
+      msg.textContent = '❌ ' + r.message;
+      msg.className = 'auth-msg auth-msg-err';
     }
   });
 })();

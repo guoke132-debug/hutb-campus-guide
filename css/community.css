@@ -398,6 +398,32 @@
   pointer-events: none;
 }
 
+/* ===== 认证页（新版双列） ===== */
+.auth-two-col {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+}
+.auth-col { padding: 0; }
+.auth-col-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 var(--sp-3);
+  text-align: center;
+}
+.auth-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 28px;
+  color: var(--c-text-muted);
+  font-size: 0.8rem;
+  padding: 28px 16px 0;
+}
+
 /* ===== 认证页 ===== */
 .auth-page {
   min-height: 100vh;
