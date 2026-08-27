@@ -1,5 +1,5 @@
 ﻿/* ====================================================================
- * shared.js - 公共工具（导航高亮、footer年份、escape HTML、toast等）
+ * shared.js - 公共工具(导航高亮、footer年份、escape HTML、toast等)
  * ==================================================================== */
 
 window.HUTB = window.HUTB || {};
@@ -119,7 +119,7 @@ HUTB.prompt = function (title, fields) {
         overlay.querySelectorAll('input, textarea').forEach((el) => { data[el.name] = el.value.trim(); });
         const missing = fields.filter((f) => f.required && !data[f.name]);
         if (missing.length) {
-          HUTB.toast('请填写：' + missing.map((m) => m.label).join('、'));
+          HUTB.toast('请填写:' + missing.map((m) => m.label).join('、'));
           return;
         }
         overlay.remove();
@@ -129,13 +129,59 @@ HUTB.prompt = function (title, fields) {
   });
 };
 
-/* ----- 招新报名 Modal ----- */
+/* ----- 加入我们：双二维码弹窗 ----- */
 HUTB.openRecruitModal = function () {
-  const settings = HUTBData.getSettings();
-  if (settings.recruitmentFormUrl && /^https?:\/\//i.test(settings.recruitmentFormUrl)) {
-    window.open(settings.recruitmentFormUrl, '_blank', 'noopener');
-    return;
-  }
+  if (document.getElementById('recruitJoinModal')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'recruitJoinModal';
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:680px;">
+      <div class="modal-head">
+        <h3>🤝 加入华硕校园合伙人 ACM</h3>
+        <button class="modal-close" data-act="close">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--c-text-muted); font-size:0.9rem; text-align:center; margin-bottom: var(--sp-5);">
+          扫码加入我们，大一/大二/其他年级都可报名，3 个工作日内联系你。
+        </p>
+        <div class="recruit-qr-grid">
+          <div class="recruit-qr-card">
+            <div class="recruit-qr-title">① 扫码加入<br/>ACM 面试群</div>
+            <img src="assets/acm-qr-wechat.jpg" alt="ACM QQ面试群二维码" class="recruit-qr-img" onerror="this.style.background='#f5f5f5'; this.alt='QQ群二维码未上传';"/>
+            <div class="recruit-qr-tip">群号 951637183（2026ACM湖南工商大）</div>
+          </div>
+          <div class="recruit-qr-card">
+            <div class="recruit-qr-title">② 扫码进报名表<br/>填写信息快速报名</div>
+            <img src="assets/acm-qr-form.png" alt="2026大招募报名二维码" class="recruit-qr-img" onerror="this.style.background='#f5f5f5'; this.alt='报名表二维码未上传';"/>
+            <div class="recruit-qr-tip">3 个工作日内联系你</div>
+          </div>
+        </div>
+        <div class="recruit-foot-note">
+          <div class="recruit-foot-line">📌 <b>运营平台：</b>华硕校园合伙人（ACM）— 覆盖 47 城百校的跨校平台</div>
+          <div class="recruit-foot-line">📌 <b>面试群群号：</b>951637183</div>
+          <div class="recruit-foot-line">📌 <b>面试群名称：</b>2026ACM湖南工商大</div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-accent" data-act="close">我知道了</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.dataset.act === 'close') overlay.remove();
+  });
+  document.addEventListener('keydown', function onEsc(e) {
+    if (e.key === 'Escape' && overlay.parentNode) {
+      overlay.remove();
+      document.removeEventListener('keydown', onEsc);
+    }
+  });
+};
+
+/* ----- 招新报名表单 Modal（保留备用） ----- */
+HUTB.openRecruitFormModal = function () {
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.innerHTML = `
@@ -146,7 +192,7 @@ HUTB.openRecruitModal = function () {
       </div>
       <div class="modal-body">
         <p style="color:var(--c-text-muted); font-size:0.875rem; margin-bottom: var(--sp-4);">
-          填写下方信息,我们会在 3 个工作日内联系你。带 <span style="color:#dc3545;">*</span> 为必填。
+          填写下方信息，我们会在 3 个工作日内联系你。带 <span style="color:#dc3545;">*</span> 为必填。
         </p>
         <form class="recruit-form" id="recForm">
           <div>
@@ -186,7 +232,7 @@ HUTB.openRecruitModal = function () {
           </div>
           <div>
             <label>自我介绍（可选）</label>
-            <textarea name="intro" placeholder="一句话介绍下自己,或过往做过的小项目...（最多 300 字）" maxlength="300" rows="3"></textarea>
+            <textarea name="intro" placeholder="一句话介绍下自己，或过往做过的小项目...（最多 300 字）" maxlength="300" rows="3"></textarea>
           </div>
         </form>
       </div>
@@ -245,7 +291,7 @@ HUTB.fillYear = function () {
   });
 };
 
-/* ----- 滚动揭示（IntersectionObserver 编排） ----- */
+/* ----- 滚动揭示(IntersectionObserver 编排) ----- */
 HUTB.initReveal = function () {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const targets = document.querySelectorAll('.reveal');
@@ -267,14 +313,14 @@ HUTB.initReveal = function () {
     el.style.transitionDelay = (Math.min(i, 6) * 0.06) + 's';
     io.observe(el);
   });
-  // 捕获动态注入的内容（CMS 渲染的卡片）
+  // 捕获动态注入的内容(CMS 渲染的卡片)
   setTimeout(() => {
     document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => {
       const r = el.getBoundingClientRect();
       if (r.top < window.innerHeight) el.classList.add('is-visible');
     });
   }, 400);
-  // 终极兜底：若 IO 因任何原因未触发，1.5s 后强制显示全部内容，避免下半屏永久空白
+  // 终极兜底:若 IO 因任何原因未触发,1.5s 后强制显示全部内容,避免下半屏永久空白
   setTimeout(() => {
     document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => el.classList.add('is-visible'));
   }, 1500);

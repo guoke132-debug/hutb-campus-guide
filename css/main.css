@@ -1,4 +1,4 @@
-﻿/* ====================================================================
+/* ====================================================================
  * HUTB Campus Guide - Main Stylesheet (Impeccable-grade refresh)
  * 设计方向：编辑感海岸游乐场 — 暖奶油底 + 自信海蓝/珊瑚 + 圆体中文字体
  * 注：网页字体通过各页面 <head> 中的非阻塞 <link> 加载（media=print swap），
@@ -675,4 +675,17 @@ body.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
   /* 必须盖过 body.reveal-ready .reveal，否则减弱动效用户也会看到下半屏空白 */
   body.reveal-ready .reveal,
   body.reveal-ready .reveal.is-visible { opacity: 1 !important; transform: none !important; }
+}
+
+/* ---------- 加入我们：双二维码弹窗 ---------- */
+.recruit-qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin-bottom: var(--sp-4); }
+.recruit-qr-card { background: var(--c-bg-alt); border-radius: var(--r-lg); padding: var(--sp-4); text-align: center; border: 1px solid var(--c-border); }
+.recruit-qr-title { font-size: 0.95rem; font-weight: 700; margin-bottom: var(--sp-3); color: var(--c-text); line-height: 1.4; }
+.recruit-qr-img { width: 100%; max-width: 220px; aspect-ratio: 1 / 1; object-fit: contain; background: #fff; border-radius: var(--r-md); padding: 8px; border: 1px solid var(--c-border); margin: 0 auto; display: block; }
+.recruit-qr-tip { font-size: 0.78rem; color: var(--c-text-muted); margin-top: var(--sp-2); }
+.recruit-foot-note { background: linear-gradient(135deg, #fff8e1 0%, #fff3c4 100%); border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4); margin-top: var(--sp-3); border-left: 3px solid #ee6c4d; }
+.recruit-foot-line { font-size: 0.85rem; color: var(--c-text); margin: 4px 0; }
+.recruit-foot-line b { color: #ee6c4d; font-weight: 700; }
+@media (max-width: 540px) {
+  .recruit-qr-grid { grid-template-columns: 1fr; }
 }
