@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="湖南工商大学校园生活指南 - 美食地图、周边游玩、学习攻略、新生事项,一份给湖工商学子的全景手册。">
+  <title>湖工商生活指南 · 湖南工商大学 华硕校园合伙人 出品</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body>
+
+<!-- ==================== 导航栏 ==================== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/acm-logo.png" alt="华硕校园合伙人 Logo">
+      <span class="nav-brand-text">
+        湖工商生活指南
+        <small>华硕校园合伙人 出品</small>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-label="切换菜单"><span></span></button>
+    <ul class="nav-links">
+      <li><a class="nav-link active" data-page="index.html" href="index.html">首页</a></li>
+      <li><a class="nav-link" data-page="food.html" href="food.html">美食地图</a></li>
+      <li><a class="nav-link" data-page="travel.html" href="travel.html">周边游玩</a></li>
+      <li><a class="nav-link" data-page="study.html" href="study.html">学习攻略</a></li>
+      <li><a class="nav-link" data-page="freshman.html" href="freshman.html">新生事项</a></li>
+      <li><a class="nav-link" data-page="article.html" href="admin.html" style="opacity:.7;">CMS</a></li>
+      <li><a class="nav-cta" href="#" onclick="HUTB.openRecruitModal();return false;">立即报名</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==================== Hero ==================== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="fade-up">
+      <h1 class="hero-title">
+        欢迎来到 <span>湖南工商大学</span><br>
+        四年从这里开始。
+      </h1>
+      <p class="hero-sub" id="heroSub">
+        这里是华硕校园合伙人(ACM)的学长学姐亲手整理的一份「校内+周边」全景攻略——从食堂到景点、从选课到军训,你想知道的都在这里。
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-accent" onclick="HUTB.openRecruitModal();return false;">
+          📬 加入华硕校园合伙人
+        </a>
+        <a href="#sections" class="btn btn-secondary">浏览四大板块 →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">核心板块</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">40+</div>
+          <div class="hero-stat-label">条精选攻略</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">200+</div>
+          <div class="hero-stat-label">家本地好店</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3,000+</div>
+          <div class="hero-stat-label">名湖工商人看过</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card fade-up delay-2">
+      <span class="hero-card-tag">📌 本周热门</span>
+      <h3 id="hotCardTitle">热门推荐 · 校园必看</h3>
+      <ul class="hero-card-list" id="hotCardList">
+        <li>
+          <span class="ic" style="background:#1e6091;color:#fff;">🎒</span>
+          <span>入学报到全流程图解</span>
+        </li>
+        <li>
+          <span class="ic" style="background:#ee6c4d;color:#fff;">🍱</span>
+          <span>西院餐厅麻辣香锅窗口</span>
+        </li>
+        <li>
+          <span class="ic" style="background:#52a6b8;color:#fff;">🌊</span>
+          <span>后湖 · 海上第一名山</span>
+        </li>
+        <li>
+          <span class="ic" style="background:#7cb518;color:#fff;">📚</span>
+          <span>大一上 · 选课避坑指南</span>
+        </li>
+      </ul>
+      <a href="#" class="btn btn-secondary btn-sm" style="margin-top: var(--sp-4); width:100%;" id="hotCardLink">查看完整攻略 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 四大板块入口 ==================== -->
+<section class="container reveal" id="sections" style="padding: var(--sp-8) var(--sp-4);">
+  <div class="section-title">
+    <span class="section-title-icon">🗺️</span>
+    四大板块 <small style="font-size:0.875rem; color:var(--c-text-muted); font-weight:400; margin-left:var(--sp-2);">点击进入对应分区</small>
+  </div>
+  <p class="section-sub">从食堂到山峰、从图书馆到宿舍,把大学四年的坑提前踩平。</p>
+
+  <div class="card-grid" id="entryGrid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));"></div>
+</section>
+
+<!-- ==================== 精选内容（每个板块一条） ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="section-title">
+    <span class="section-title-icon">⭐</span>
+    本周精选
+  </div>
+  <p class="section-sub">由编辑部筛选,每个板块推荐 1-2 份必看内容。</p>
+
+  <div class="card-grid" id="featuredGrid"></div>
+</section>
+
+<!-- ==================== 关于华硕校园合伙人 ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="card" style="background: linear-gradient(135deg, #1e6091 0%, #134558 100%); color:#fff; padding: var(--sp-7); border:none;">
+    <div class="about-split">
+      <div>
+        <h3 style="color:#fff; font-size:1.6rem; margin-bottom: var(--sp-3);">🤝 关于华硕校园合伙人（ACM）</h3>
+        <p style="color: rgba(255,255,255,0.88); line-height:1.85;" id="aboutAcmText">
+          华硕校园合伙人（ACM）2003年跨校平台，覆盖47城百校。用AI带你玩转大学，攒简历、交朋友！
+        </p>
+        <div style="display:flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-5);">
+          <a href="#" class="btn btn-accent" onclick="HUTB.openRecruitModal();return false;">加入我们</a>
+          <a href="admin.html" class="btn btn-secondary" style="background:rgba(255,255,255,0.18); border-color: transparent; color:#fff;">访问 CMS 后台</a>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center;">
+        <img src="assets/acm-logo.png" alt="华硕校园合伙人" class="about-logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 招新 CTA Bar ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="card" style="background: linear-gradient(135deg, #ee6c4d 0%, #f5a623 100%); color:#fff; padding: var(--sp-7); text-align: center; border:none;">
+    <h3 style="color:#fff; font-size:1.8rem; margin-bottom: var(--sp-3);">📬 2026 华硕校园合伙人招新火热进行中</h3>
+    <p style="color: rgba(255,255,255,0.92); max-width:680px; margin: 0 auto var(--sp-5);">
+      无论你是想交朋友、玩活动,还是想锻炼自己、为将来简历加分,这里都有适合你的舞台!
+      入会后会有学长学姐带你熟悉团队资源,让你大学四年少走弯路。
+    </p>
+    <button class="btn" style="background:#fff; color: var(--c-accent);" onclick="HUTB.openRecruitModal();">
+      🚀 提交报名表单
+    </button>
+  </div>
+</section>
+
+<!-- ==================== 关注我们 ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="video-channel">
+    <div class="video-channel-header">
+      <span class="section-title-icon">📺</span>
+      <h2 class="section-title" style="margin:0;">关注我们的视频号</h2>
+    </div>
+    <p class="section-sub">这是我们社团的视频号，关注我们的视频号可以了解更多关于我们的故事。</p>
+    <div class="video-channel-card">
+      <div class="video-channel-img-wrap" role="button" tabindex="0" aria-label="点击放大扫码关注视频号">
+        <img src="assets/video-channel.jpg" alt="ACM-校园合伙人 视频号二维码" class="video-channel-img">
+        <span class="video-channel-hint">👆 点击放大扫码关注</span>
+      </div>
+      <div class="video-channel-info">
+        <div class="video-channel-name">
+          <img src="assets/acm-logo.png" alt="" class="video-channel-avatar">
+          <span>ACM-校园合伙人</span>
+        </div>
+        <p class="video-channel-caption">这是我们社团的视频号，关注我们的视频号可以了解更多关于我们的故事。</p>
+        <button class="btn btn-primary js-open-video-lightbox" type="button">🎬 打开视频号二维码</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 页脚 ==================== -->
+<footer class="footer reveal">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/acm-logo.png" alt="华硕校园合伙人">
+          <div>
+            <div class="footer-brand-name">湖工商生活指南</div>
+            <div class="footer-brand-tag">由华硕校园合伙人维护</div>
+          </div>
+        </div>
+        <p>一份给湖南工商大学新生的全景攻略合集。
+          内容均由在校学长学姐真实整理,持续更新。</p>
+      </div>
+      <div>
+        <h4 class="footer-title">四大板块</h4>
+        <ul>
+          <li><a href="food.html">美食地图</a></li>
+          <li><a href="travel.html">周边游玩</a></li>
+          <li><a href="study.html">学习攻略</a></li>
+          <li><a href="freshman.html">新生事项</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">关于我们</h4>
+        <ul>
+          <li><a href="#" onclick="HUTB.openRecruitModal();return false;">加入招新</a></li>
+          <li><a href="admin.html">CMS 后台</a></li>
+          <li><a href="login.html">管理员登录</a></li>
+          <li><a href="#" id="footerContactEmail">联系我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">扫码访问</h4>
+        <div style="display:flex; gap: var(--sp-3); align-items:flex-start; margin-top: var(--sp-2);">
+          <img src="assets/qrcode.png" alt="扫码访问网站" style="width:96px; height:96px; border-radius:8px; background:#fff; padding:6px; flex-shrink:0;">
+          <div style="font-size: 0.825rem; color: rgba(255,255,255,0.7); line-height: 1.6;">
+            <div style="color:#fff; font-weight:600; margin-bottom: 4px;">📱 微信扫一扫</div>
+            <div>同 WiFi 下可直接访问本站</div>
+            <div style="margin-top: 6px; font-family: monospace; font-size: 0.72rem; color: var(--c-accent-light);">扫码即可访问</div>
+            <a href="qr.html" style="font-size: 0.75rem; color: rgba(255,255,255,0.55);">查看分享页 →</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-title">学习资源</h4>
+        <ul>
+          <li><a href="{{ORG_SITE}}" target="_blank" rel="noopener">华硕校园合伙人</a></li>
+          <li><a href="https://onlinejudge.org" target="_blank" rel="noopener">Online Judge</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://oi-wiki.org" target="_blank" rel="noopener">OI Wiki</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> 华硕校园合伙人 · 湖工商生活指南</div>
+      <div>Made with ❤️ by ACM 华硕校园合伙人</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== 视频号二维码放大弹窗 ==================== -->
+<div id="videoChannelLightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="视频号二维码" style="display:none;">
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="关闭" type="button">&times;</button>
+    <img src="assets/video-channel.jpg" alt="ACM-校园合伙人 视频号二维码">
+    <p>这是我们社团的视频号，关注我们的视频号可以了解更多关于我们的故事。</p>
+    <div style="font-size:0.8rem;color:var(--c-text-muted);margin-top:var(--sp-3);">微信扫一扫，关注「ACM-校园合伙人」</div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

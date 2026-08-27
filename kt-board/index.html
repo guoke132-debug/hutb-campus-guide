@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园指南网站 · 全国通用线下推广KT板模板</title>
+<style>
+  :root{
+    --c-bg:#FFF7F0;
+    --c-ink:#1F2430;
+    --c-sub:#5B6472;
+    --c-primary:#FF5A5F;
+    --c-line:#ECE3DA;
+    --c-food:#FF8A5B;
+    --c-play:#13B7A6;
+    --c-study:#4D7CFE;
+    --c-need:#9B5DE5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#e9edf2;color:var(--c-ink);-webkit-font-smoothing:antialiased;}
+  .poster{
+    width:800px;height:1200px;margin:24px auto;background:var(--c-bg);
+    border-radius:18px;overflow:hidden;box-shadow:0 22px 60px rgba(0,0,0,.18);
+    display:flex;flex-direction:column;position:relative;
+  }
+  /* 顶部品牌色带 */
+  .band{background:linear-gradient(120deg,var(--c-primary),#FF8A5B);padding:30px 44px 26px;color:#fff;position:relative;}
+  .brand{display:flex;align-items:center;gap:14px;font-weight:700;font-size:18px;}
+  .brand .logo{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:24px;}
+  .brand .site{margin-left:auto;background:rgba(0,0,0,.18);padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;}
+  h1.title{font-size:46px;line-height:1.18;margin-top:18px;letter-spacing:1px;font-weight:900;}
+  .subtitle{margin-top:12px;font-size:19px;opacity:.96;font-weight:600;}
+  /* 编辑提示角标 */
+  .hint{position:absolute;top:16px;right:16px;background:#FFE08A;color:#5a4b00;font-size:12px;padding:5px 10px;border-radius:8px;font-weight:800;transform:rotate(3deg);}
+  /* 四大板块 2×2 */
+  .sections{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:26px 44px;flex:1;}
+  .sec{background:#fff;border-radius:16px;padding:22px 22px 18px;border:1px solid var(--c-line);display:flex;flex-direction:column;}
+  .sec .ico{font-size:34px;line-height:1;}
+  .sec h3{font-size:24px;margin:10px 0 8px;}
+  .sec p{font-size:15.5px;line-height:1.55;color:var(--c-sub);}
+  .sec .tag{display:inline-block;font-size:12px;color:#fff;background:#CBD3DF;padding:4px 10px;border-radius:999px;align-self:flex-start;margin-top:14px;}
+  .sec.food{border-top:6px solid var(--c-food);}
+  .sec.play{border-top:6px solid var(--c-play);}
+  .sec.study{border-top:6px solid var(--c-study);}
+  .sec.need{border-top:6px solid var(--c-need);}
+  /* 底部：二维码 + 信息 */
+  .foot{display:flex;gap:26px;align-items:center;padding:22px 44px 8px;background:#fff;}
+  .qr-wrap{flex:none;text-align:center;}
+  .qr{width:156px;height:156px;border-radius:12px;border:1px solid var(--c-line);background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .qr img{width:100%;height:100%;object-fit:contain;}
+  .qr-text{font-size:15px;font-weight:800;margin-top:8px;color:var(--c-ink);}
+  .foot-info{flex:1;}
+  .foot-info .line{font-size:15px;color:var(--c-sub);margin:5px 0;}
+  .foot-info .line b{color:var(--c-ink);}
+  .cta{display:inline-block;margin-top:12px;background:var(--c-primary);color:#fff;font-weight:800;font-size:17px;padding:11px 22px;border-radius:999px;}
+  .note{font-size:12.5px;color:#9aa3b0;padding:10px 44px 22px;background:#fff;line-height:1.5;}
+  /* 响应式：手机预览 */
+  @media (max-width:840px){
+    body{background:#fff;}
+    .poster{width:100%;height:auto;margin:0;border-radius:0;box-shadow:none;}
+    .band{padding:22px 20px;}
+    h1.title{font-size:34px;}
+    .subtitle{font-size:16px;}
+    .sections{grid-template-columns:1fr;padding:18px 20px;}
+    .foot{flex-direction:column;align-items:flex-start;padding:18px 20px 6px;}
+    .qr{width:180px;height:180px;}
+    .note{padding:10px 20px 20px;}
+  }
+  /* 打印：A2 竖版 */
+  @page{ size:A2 portrait; margin:0; }
+  @media print{
+    body{background:#fff;}
+    .poster{box-shadow:none;margin:0;width:100%;height:100%;}
+    .hint{display:none;}
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="hint">✎ 所有【】内容均可替换</div>
+
+    <!-- ===== 顶部品牌 + 主标题 ===== -->
+    <div class="band">
+      <div class="brand">
+        <div class="logo">🎓</div>
+        <div>【社团 / 组织名称】</div>
+        <div class="site">【网站名】· 新生专属</div>
+      </div>
+      <!-- 主标题：从《制作说明》推荐方案里挑一句填这里 -->
+      <h1 class="title">【主标题 · 各校自选，<br>见《制作说明》推荐方案】</h1>
+      <div class="subtitle">刚入学不迷路 · 吃喝玩学一站搞定 · 扫码即用</div>
+    </div>
+
+    <!-- ===== 四大板块（2×2 预留位置）===== -->
+    <div class="sections">
+      <div class="sec food">
+        <div class="ico">🍜</div>
+        <h3>美食地图</h3>
+        <p>校内食堂哪层好吃、周边宝藏小吃、外卖红黑榜——吃货新生的觅食导航。</p>
+        <span class="tag">可替换：本校食堂 / 周边餐饮实拍与点评</span>
+      </div>
+      <div class="sec play">
+        <div class="ico">🚶</div>
+        <h3>周边游玩</h3>
+        <p>校门口怎么走、附近商圈公园、周末去哪浪——把城市玩法装进口袋。</p>
+        <span class="tag">可替换：本校周边景点 / 交通 / 商圈</span>
+      </div>
+      <div class="sec study">
+        <div class="ico">📚</div>
+        <h3>学习攻略</h3>
+        <p>选课避坑、图书馆占位、绩点怎么刷、考证规划——学长学姐的经验都在这。</p>
+        <span class="tag">可替换：本校选课 / 考试 / 资源攻略</span>
+      </div>
+      <div class="sec need">
+        <div class="ico">🎒</div>
+        <h3>新生事项</h3>
+        <p>报到流程、宿舍神器、防骗指南、校园卡怎么用——入学第一步全厘清。</p>
+        <span class="tag">可替换：本校报到 / 住宿 / 办事指南</span>
+      </div>
+    </div>
+
+    <!-- ===== 底部：二维码 + 信息 ===== -->
+    <div class="foot">
+      <div class="qr-wrap">
+        <div class="qr"><img src="assets/qrcode-sample.png" alt="网站二维码"></div>
+        <div class="qr-text">扫码访问网站</div>
+      </div>
+      <div class="foot-info">
+        <div class="line"><b>网址：</b>【https://你的学校网站链接】</div>
+        <div class="line"><b>主办：</b>【社团 / 学院 / 学生会名称】</div>
+        <div class="line"><b>咨询：</b>【QQ群 / 微信 / 招新邮箱】</div>
+        <span class="cta">👉 加入我们，一起玩转大学</span>
+      </div>
+    </div>
+    <div class="note">本模板为全国通用版：所有【】标注内容请按本校实际情况替换；二维码请替换为贵校网站对应链接生成的图片（建议 300dpi 以上）。</div>
+  </div>
+</body>
+</html>

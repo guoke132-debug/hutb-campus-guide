@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS 后台 · 湖工商生活指南</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body class="admin-body">
+
+<!-- Admin Top Bar -->
+<nav class="admin-nav">
+  <div class="admin-nav-inner">
+    <a href="index.html" class="admin-brand">
+      <img src="assets/acm-logo.png" alt="华硕校园合伙人">
+      <span>湖工商生活指南 · CMS</span>
+    </a>
+    <ul class="admin-tabs" id="adminTabs"></ul>
+    <div class="admin-user">
+      <div class="avatar" id="userAvatar">A</div>
+      <div>
+        <div style="font-weight:600;" id="userName">admin</div>
+        <div style="color:var(--c-text-muted); font-size:12px;" id="userRole">超级管理员</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="logout()">退出</button>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+  <!-- Sidebar -->
+  <aside class="admin-side">
+    <div class="admin-side-title">总览</div>
+    <ul class="admin-side-list">
+      <li class="admin-side-item active" data-tab="dashboard">📊 数据概览 <span class="num" id="navTotal">0</span></li>
+      <li class="admin-side-item" data-tab="recruitment">📬 招新报名 <span class="num" id="navRec">0</span></li>
+    </ul>
+
+    <div class="admin-side-title">板块内容</div>
+    <ul class="admin-side-list">
+      <li class="admin-side-item" data-tab="food">🍱 美食地图 <span class="num" id="navFood">0</span></li>
+      <li class="admin-side-item" data-tab="travel">🌊 周边游玩 <span class="num" id="navTravel">0</span></li>
+      <li class="admin-side-item" data-tab="study">📚 学习攻略 <span class="num" id="navStudy">0</span></li>
+      <li class="admin-side-item" data-tab="freshman">🎒 新生事项 <span class="num" id="navFresh">0</span></li>
+    </ul>
+
+    <div class="admin-side-title">系统</div>
+    <ul class="admin-side-list">
+      <li class="admin-side-item" data-tab="categories">🗂️ 分类管理</li>
+      <li class="admin-side-item" data-tab="settings">⚙️ 站点设置</li>
+      <li class="admin-side-item" data-tab="data-tools">💾 数据导入 / 导出</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main" id="mainContent">
+    <div class="empty-state">加载中…</div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

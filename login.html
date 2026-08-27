@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员登录 · 湖工商生活指南 CMS</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body class="admin-body">
+
+<div class="auth-page">
+  <div class="auth-card">
+    <img src="assets/acm-logo.png" alt="华硕校园合伙人" class="auth-logo">
+    <h2 class="auth-title">湖工商生活指南 CMS</h2>
+    <p class="auth-sub">管理员登录</p>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="field">
+        <label for="username">账号</label>
+        <input type="text" id="username" name="username" placeholder="请输入管理员账号" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码" required>
+      </div>
+      <button type="submit" class="btn btn-accent" style="width:100%; padding: 12px;">
+        🔓 登录后台
+      </button>
+    </form>
+
+    <div class="auth-tip">
+      💡 演示账号:<code>admin</code> · 密码:<code>hutb@2026</code>
+    </div>
+
+    <div style="text-align:center; margin-top: var(--sp-4); font-size: 0.825rem;">
+      <a href="index.html" style="color: var(--c-text-muted);">← 回到前台</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+  // 已登录直接跳到 admin
+  if (HUTBData.isLoggedIn()) {
+    location.href = 'admin.html';
+  }
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const u = e.target.username.value.trim();
+    const p = e.target.password.value;
+    const r = HUTBData.login(u, p);
+    if (r.ok) {
+      HUTB.toast('登录成功');
+      setTimeout(() => location.href = 'admin.html', 600);
+    } else {
+      HUTB.toast(r.message || '登录失败');
+    }
+  });
+</script>
+</body>
+</html>

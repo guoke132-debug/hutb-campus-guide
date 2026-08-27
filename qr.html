@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>扫码访问 · 湖工商生活指南</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff8f0 0%, #fef1e0 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-5);
+    }
+    .share-card {
+      background: #fff;
+      border-radius: var(--r-xl);
+      padding: var(--sp-6);
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--sh-xl);
+      border: 1px solid #f5d2b8;
+    }
+    .share-logo {
+      height: 56px;
+      margin: 0 auto var(--sp-3);
+      background: var(--c-bg);
+      padding: 8px;
+      border-radius: var(--r-md);
+      display: block;
+    }
+    .share-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--c-primary-dark);
+      margin-bottom: 4px;
+    }
+    .share-sub {
+      color: var(--c-text-muted);
+      font-size: 0.875rem;
+      margin-bottom: var(--sp-5);
+    }
+    .share-qr {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto var(--sp-4);
+      padding: 12px;
+      background: #fff;
+      border: 2px solid var(--c-bg-alt);
+      border-radius: var(--r-md);
+      display: block;
+    }
+    .share-url {
+      display: inline-block;
+      background: var(--c-bg-alt);
+      color: var(--c-primary);
+      font-family: monospace;
+      font-size: 0.875rem;
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: var(--r-full);
+      font-weight: 600;
+      word-break: break-all;
+      max-width: 100%;
+    }
+    .share-tip {
+      margin-top: var(--sp-4);
+      color: var(--c-text-muted);
+      font-size: 0.825rem;
+      line-height: 1.7;
+      padding-top: var(--sp-4);
+      border-top: 1px dashed var(--c-border);
+    }
+    .share-tip strong { color: var(--c-accent); }
+    .share-back {
+      display: inline-block;
+      margin-top: var(--sp-5);
+      color: var(--c-text-muted);
+      font-size: 0.825rem;
+    }
+    .share-actions {
+      display: flex;
+      gap: var(--sp-2);
+      justify-content: center;
+      margin-top: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    @media print {
+      body { background: #fff; }
+      .share-card { box-shadow: none; border: 1px solid #ccc; }
+      .share-back, .share-actions { display: none; }
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body>
+
+<div class="share-card">
+  <img src="assets/acm-logo.png" alt="华硕校园合伙人" class="share-logo">
+  <h1 class="share-title">湖工商生活指南</h1>
+  <p class="share-sub">华硕校园合伙人 出品</p>
+
+  <img src="assets/qrcode.png" alt="扫码访问" class="share-qr">
+
+  <div class="share-url">{{SITE_URL}}</div>
+
+  <div class="share-tip">
+    📱 用 <strong>微信 / 相机 / 浏览器</strong> 扫码即可访问<br>
+    🌐 公网链接，<strong>任何人</strong>都可访问<br>
+    👥 无需账号，扫码即用
+  </div>
+
+  <div class="share-actions">
+    <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ 打印</button>
+    <a href="index.html" class="btn btn-secondary btn-sm">🏠 回到首页</a>
+  </div>
+
+  <a href="index.html" class="share-back">← 返回湖工商生活指南</a>
+</div>
+
+</body>
+</html>

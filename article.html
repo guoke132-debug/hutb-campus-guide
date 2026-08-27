@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>详情 · 湖工商生活指南</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/acm-logo.png" alt="华硕校园合伙人 Logo">
+      <span class="nav-brand-text">湖工商生活指南<small>华硕校园合伙人 出品</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="切换菜单"><span></span></button>
+    <ul class="nav-links">
+      <li><a class="nav-link" data-page="index.html" href="index.html">首页</a></li>
+      <li><a class="nav-link" data-page="food.html" href="food.html">美食地图</a></li>
+      <li><a class="nav-link" data-page="travel.html" href="travel.html">周边游玩</a></li>
+      <li><a class="nav-link" data-page="study.html" href="study.html">学习攻略</a></li>
+      <li><a class="nav-link" data-page="freshman.html" href="freshman.html">新生事项</a></li>
+      <li><a class="nav-cta" href="#" onclick="HUTB.openRecruitModal();return false;">立即报名</a></li>
+    </ul>
+  </div>
+</nav>
+
+<article class="article-page" id="articlePage">
+  <a class="article-back" href="javascript:history.back()">← 返回上一页</a>
+
+  <header class="article-header">
+    <div id="articleCategory" style="margin-bottom: var(--sp-3);"></div>
+    <h1 class="article-title" id="articleTitle">加载中…</h1>
+    <div class="article-meta" id="articleMeta"></div>
+  </header>
+
+  <div class="article-cover" id="articleCover"></div>
+
+  <div class="article-body" id="articleBody"></div>
+
+  <nav id="prevNextNav" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-top: var(--sp-7); padding-top: var(--sp-5); border-top: 1px solid var(--c-border);"></nav>
+
+  <div class="card" style="background: linear-gradient(135deg, #ee6c4d 0%, #f5a623 100%); color:#fff; margin-top: var(--sp-7); padding: var(--sp-5); text-align:center; border:none;">
+    <h3 style="color:#fff; margin-bottom: var(--sp-2);">喜欢这类内容?</h3>
+    <p style="color: rgba(255,255,255,0.9); margin-bottom: var(--sp-4);">加入华硕校园合伙人,一起做更多有意思的内容。</p>
+    <button class="btn" style="background:#fff; color: var(--c-accent);" onclick="HUTB.openRecruitModal();">📬 我要报名</button>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/acm-logo.png" alt="华硕校园合伙人">
+          <div><div class="footer-brand-name">湖工商生活指南</div><div class="footer-brand-tag">由华硕校园合伙人维护</div></div>
+        </div>
+        <p>一份给湖南工商大学新生的全景攻略合集。</p>
+      </div>
+      <div>
+        <h4 class="footer-title">四大板块</h4>
+        <ul>
+          <li><a href="food.html">美食地图</a></li>
+          <li><a href="travel.html">周边游玩</a></li>
+          <li><a href="study.html">学习攻略</a></li>
+          <li><a href="freshman.html">新生事项</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">关于我们</h4>
+        <ul>
+          <li><a href="#" onclick="HUTB.openRecruitModal();return false;">加入招新</a></li>
+          <li><a href="admin.html">CMS 后台</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">学习资源</h4>
+        <ul>
+          <li><a href="{{ORG_SITE}}" target="_blank" rel="noopener">华硕校园合伙人</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> 华硕校园合伙人 · 湖工商生活指南</div>
+      <div>Made with ❤️ by ACM 华硕校园合伙人</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/article.js"></script>
+</body>
+</html>

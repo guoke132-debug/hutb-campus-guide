@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习攻略 · 湖工商生活指南</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/acm-logo.png" alt="华硕校园合伙人 Logo">
+      <span class="nav-brand-text">湖工商生活指南<small>华硕校园合伙人 出品</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="切换菜单"><span></span></button>
+    <ul class="nav-links">
+      <li><a class="nav-link" data-page="index.html" href="index.html">首页</a></li>
+      <li><a class="nav-link" data-page="food.html" href="food.html">美食地图</a></li>
+      <li><a class="nav-link" data-page="travel.html" href="travel.html">周边游玩</a></li>
+      <li><a class="nav-link" data-page="study.html" href="study.html">学习攻略</a></li>
+      <li><a class="nav-link" data-page="freshman.html" href="freshman.html">新生事项</a></li>
+      <li><a class="nav-cta" href="#" onclick="HUTB.openRecruitModal();return false;">立即报名</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-banner reveal" style="--banner-c: #1e6091; --banner-c2: #134558;">
+  <div class="container page-banner-inner">
+    <div class="page-banner-icon">📚</div>
+    <div>
+      <h1>学习攻略</h1>
+      <p>选课避坑、图书馆预约攻略、自习圣地测评、保研综测解读 —— 让你的大学四年不再瞎忙。</p>
+      <div style="margin-top: var(--sp-3); display:flex; gap: var(--sp-2); flex-wrap: wrap;">
+        <span class="badge" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(4px);">学长整理</span>
+        <span class="badge" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(4px);">持续更新</span>
+        <span class="badge" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(4px);">含截图</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container reveal" style="padding: var(--sp-6) var(--sp-4);">
+  <div class="toolbar">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="search" id="searchInput" placeholder="搜索选课、图书馆、保研…">
+    </div>
+    <div class="filter-tabs" id="filterTabs"></div>
+    <div style="margin-left:auto; color:var(--c-text-muted); font-size:0.875rem;">
+      共 <span id="totalCount">0</span> 篇
+    </div>
+  </div>
+
+  <div class="card-grid" id="cardGrid"></div>
+</main>
+
+<footer class="footer reveal">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/acm-logo.png" alt="华硕校园合伙人">
+          <div><div class="footer-brand-name">湖工商生活指南</div><div class="footer-brand-tag">由华硕校园合伙人维护</div></div>
+        </div>
+        <p>一份给湖南工商大学新生的全景攻略合集。</p>
+      </div>
+      <div>
+        <h4 class="footer-title">四大板块</h4>
+        <ul>
+          <li><a href="food.html">美食地图</a></li>
+          <li><a href="travel.html">周边游玩</a></li>
+          <li><a href="study.html">学习攻略</a></li>
+          <li><a href="freshman.html">新生事项</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">关于我们</h4>
+        <ul>
+          <li><a href="#" onclick="HUTB.openRecruitModal();return false;">加入招新</a></li>
+          <li><a href="admin.html">CMS 后台</a></li>
+          <li><a href="login.html">管理员登录</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">学习资源</h4>
+        <ul>
+          <li><a href="{{ORG_SITE}}" target="_blank" rel="noopener">华硕校园合伙人</a></li>
+          <li><a href="https://onlinejudge.org" target="_blank" rel="noopener">Online Judge</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> 华硕校园合伙人 · 湖工商生活指南</div>
+      <div>Made with ❤️ by ACM 华硕校园合伙人</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/study.js"></script>
+</body>
+</html>
