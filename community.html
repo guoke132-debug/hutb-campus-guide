@@ -75,6 +75,58 @@
   </div>
 </main>
 
+<!-- 本地登录弹窗（站内，不用跳auth.html） -->
+<div class="modal-overlay" id="loginModal" style="display:none; z-index:2000;">
+  <div class="modal" style="max-width:380px; text-align:center;">
+    <div style="padding: 36px 28px 28px;">
+      <img src="assets/acm-logo.png" alt="ACM" style="width:52px;height:52px;border-radius:12px;margin:0 auto 12px;display:block;">
+      <h3 style="margin:0 0 4px;font-size:1.2rem;color:var(--c-text);">欢迎来到湖工商社区</h3>
+      <p style="margin:0 0 20px;font-size:0.85rem;color:var(--c-text-muted);">登录后可发帖、点赞、评论</p>
+
+      <!-- 登录 Tab -->
+      <div id="loginTab">
+        <div class="field" style="text-align:left;">
+          <label for="lm-username">账号</label>
+          <input type="text" id="lm-username" placeholder="你的账号" autocomplete="username">
+        </div>
+        <div class="field" style="text-align:left;">
+          <label for="lm-password">密码</label>
+          <input type="password" id="lm-password" placeholder="密码" autocomplete="current-password">
+        </div>
+        <div id="lm-login-msg" class="auth-msg" style="text-align:center;"></div>
+        <button class="btn btn-accent" style="width:100%;padding:11px;" id="lm-login-btn">🔑 登录</button>
+        <p style="margin:12px 0 0;font-size:0.8rem;color:var(--c-text-muted);">
+          还没有账号？<a href="#" id="lm-go-register" style="color:var(--c-primary);font-weight:600;">立即注册</a>
+        </p>
+      </div>
+
+      <!-- 注册 Tab -->
+      <div id="registerTab" style="display:none;">
+        <div class="field" style="text-align:left;">
+          <label for="lm-reg-user">账号</label>
+          <input type="text" id="lm-reg-user" placeholder="2-20位，小写字母/数字/下划线">
+        </div>
+        <div class="field" style="text-align:left;">
+          <label for="lm-reg-pwd">密码</label>
+          <input type="password" id="lm-reg-pwd" placeholder="至少 6 位">
+        </div>
+        <div class="field" style="text-align:left;">
+          <label for="lm-reg-confirm">确认密码</label>
+          <input type="password" id="lm-reg-confirm" placeholder="再输一次">
+        </div>
+        <div id="lm-reg-msg" class="auth-msg" style="text-align:center;"></div>
+        <button class="btn btn-accent" style="width:100%;padding:11px;" id="lm-register-btn">✨ 注册</button>
+        <p style="margin:12px 0 0;font-size:0.8rem;color:var(--c-text-muted);">
+          已有账号？<a href="#" id="lm-go-login" style="color:var(--c-primary);font-weight:600;">去登录</a>
+        </p>
+      </div>
+    </div>
+    <div style="padding:0 28px 20px;text-align:center;">
+      <button class="modal-close" onclick="closeLoginModal()" style="width:100%;border:1.5px solid var(--c-border);background:#fff;border-radius:var(--r-md);padding:9px;color:var(--c-text-muted);font-size:0.875rem;cursor:pointer;">取消</button>
+    </div>
+  </div>
+</div>
+
 <!-- 发帖弹窗 -->
 <div class="modal-overlay" id="postModal" style="display:none;">
   <div class="modal post-modal">
@@ -142,7 +194,7 @@
         </div>
       </div>
       <div class="comment-login-tip" id="commentLoginTip">
-        <a href="auth.html">登录</a> 后才能评论
+        <a href="#" onclick="openLoginModal();return false;">登录</a> 后才能评论
       </div>
     </div>
   </div>
@@ -259,9 +311,103 @@
     document.getElementById('submitPost').addEventListener('click', onSubmitPost);
     document.getElementById('submitComment').addEventListener('click', onSubmitComment);
 
+    // ===== 登录弹窗事件 =====
+    document.getElementById('lm-go-register').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('loginTab').style.display = 'none';
+      document.getElementById('registerTab').style.display = '';
+      document.getElementById('lm-login-msg').textContent = '';
+      document.getElementById('lm-reg-msg').textContent = '';
+      document.getElementById('lm-reg-user').focus();
+    });
+
+    document.getElementById('lm-go-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('registerTab').style.display = 'none';
+      document.getElementById('loginTab').style.display = '';
+      document.getElementById('lm-login-msg').textContent = '';
+      document.getElementById('lm-reg-msg').textContent = '';
+      document.getElementById('lm-username').focus();
+    });
+
+    // 弹窗内登录按钮
+    document.getElementById('lm-login-btn').addEventListener('click', async () => {
+      const u = document.getElementById('lm-username').value.trim();
+      const p = document.getElementById('lm-password').value;
+      const msg = document.getElementById('lm-login-msg');
+      const btn = document.getElementById('lm-login-btn');
+      if (!u || !p) { msg.textContent = '❌ 请填写账号和密码'; msg.className = 'auth-msg auth-msg-err'; return; }
+      btn.disabled = true;
+      btn.textContent = '⏳ 登录中...';
+      const r = await User.login(u, p);
+      btn.disabled = false;
+      btn.textContent = '🔑 登录';
+      if (r.ok) {
+        currentUser = User.getSession();
+        closeLoginModal();
+        renderTopbar();
+        renderPostList();
+        toast('✅ 登录成功！');
+        if (pendingAction) {
+          if (pendingAction === '发帖') setTimeout(() => openPostModal(), 300);
+          pendingAction = null;
+        }
+      } else {
+        msg.textContent = '❌ ' + r.message;
+        msg.className = 'auth-msg auth-msg-err';
+      }
+    });
+
+    // 弹窗内注册按钮
+    document.getElementById('lm-register-btn').addEventListener('click', async () => {
+      const u = document.getElementById('lm-reg-user').value.trim();
+      const p = document.getElementById('lm-reg-pwd').value;
+      const c = document.getElementById('lm-reg-confirm').value;
+      const msg = document.getElementById('lm-reg-msg');
+      const btn = document.getElementById('lm-register-btn');
+      if (!u || !p) { msg.textContent = '❌ 请填写账号和密码'; msg.className = 'auth-msg auth-msg-err'; return; }
+      if (p !== c) { msg.textContent = '❌ 两次密码不一致'; msg.className = 'auth-msg auth-msg-err'; return; }
+      btn.disabled = true;
+      btn.textContent = '⏳ 注册中...';
+      const r = await User.register(u, p);
+      btn.disabled = false;
+      btn.textContent = '✨ 注册';
+      if (r.ok) {
+        // 注册完自动登录
+        const lr = await User.login(u, p);
+        if (lr.ok) {
+          currentUser = User.getSession();
+          closeLoginModal();
+          renderTopbar();
+          renderPostList();
+          toast('✅ 注册并登录成功！');
+        } else {
+          msg.textContent = '✅ 注册成功，请登录';
+          msg.className = 'auth-msg auth-msg-ok';
+          document.getElementById('registerTab').style.display = 'none';
+          document.getElementById('loginTab').style.display = '';
+          document.getElementById('lm-username').value = u;
+          document.getElementById('lm-password').value = '';
+          document.getElementById('lm-password').focus();
+        }
+      } else {
+        msg.textContent = '❌ ' + r.message;
+        msg.className = 'auth-msg auth-msg-err';
+      }
+    });
+
+    // 回车登录
+    document.getElementById('lm-password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('lm-login-btn').click();
+    });
+    document.getElementById('lm-reg-confirm').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('lm-register-btn').click();
+    });
+
     // ESC关闭
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        closeLoginModal();
         closePostModal();
         closeDetailModal();
       }
@@ -274,16 +420,12 @@
     if (currentUser) {
       el.innerHTML = `
         <span class="topbar-username">👤 ${currentUser.username}</span>
-        <button class="btn btn-sm" onclick="location.href='auth.html'">退出</button>
+        <button class="btn btn-sm" onclick="User.logout();currentUser=null;renderTopbar();renderPostList();toast('已退出登录');">退出</button>
       `;
     } else {
       el.innerHTML = `
-        <a href="auth.html" class="btn btn-sm btn-accent">登录 / 注册</a>
+        <button class="btn btn-sm btn-accent" onclick="openLoginModal()">登录 / 注册</button>
       `;
-      document.getElementById('postBtn').addEventListener('click', () => {
-        toast('请先登录后再发帖');
-        setTimeout(() => location.href = 'auth.html', 800);
-      });
     }
   }
 
@@ -317,7 +459,7 @@
       // 点赞
       card.querySelector('.like-btn').addEventListener('click', (e) => {
         e.stopPropagation();
-        if (!currentUser) { toast('登录后才能点赞'); return; }
+        if (!currentUser) { openLoginModal('点赞'); return; }
         const newCount = Community.toggleLike(id, currentUser.username);
         card.querySelector('.like-count').textContent = newCount || '赞';
         const btn = card.querySelector('.like-btn');
@@ -378,7 +520,11 @@
 
   /* ===================== 发帖弹窗 ===================== */
   function onPostBtn() {
-    if (!currentUser) { toast('登录后才能发帖'); return; }
+    if (!currentUser) { openLoginModal('发帖'); return; }
+    openPostModal();
+  }
+
+  function openPostModal() {
     document.getElementById('postModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
     document.getElementById('postTitle').focus();
@@ -454,7 +600,7 @@
 
     // 点赞
     document.getElementById('detailLikeBtn').addEventListener('click', () => {
-      if (!currentUser) { toast('登录后才能点赞'); return; }
+      if (!currentUser) { openLoginModal('点赞'); return; }
       const newCount = Community.toggleLike(post.id, currentUser.username);
       document.getElementById('detailLikeCount').textContent = newCount;
       const btn = document.getElementById('detailLikeBtn');
@@ -506,7 +652,7 @@
   }
 
   function onSubmitComment() {
-    if (!currentUser) { toast('登录后才能评论'); return; }
+    if (!currentUser) { openLoginModal('评论'); return; }
     const content = document.getElementById('commentInput').value.trim();
     if (!content) { toast('评论内容不能为空'); return; }
     const r = Community.addComment(currentDetailPost.id, currentUser.username, content);
@@ -522,6 +668,32 @@
       toast(r.message || '评论失败');
     }
   }
+
+  /* ===================== 登录弹窗 ===================== */
+  // pendingAction: 登录成功后要执行的动作
+  let pendingAction = null;
+
+  window.openLoginModal = function(action) {
+    pendingAction = action || null;
+    document.getElementById('loginTab').style.display = '';
+    document.getElementById('registerTab').style.display = 'none';
+    document.getElementById('lm-login-msg').textContent = '';
+    document.getElementById('lm-reg-msg').textContent = '';
+    document.getElementById('lm-username').value = '';
+    document.getElementById('lm-password').value = '';
+    document.getElementById('lm-reg-user').value = '';
+    document.getElementById('lm-reg-pwd').value = '';
+    document.getElementById('lm-reg-confirm').value = '';
+    document.getElementById('loginModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('lm-username').focus(), 100);
+  };
+
+  window.closeLoginModal = function() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.body.style.overflow = '';
+    pendingAction = null;
+  };
 
   /* 暴露给 onclick */
   window.deletePost = function(id) {
