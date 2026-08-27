@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -30,13 +30,14 @@
         <label for="password">密码</label>
         <input type="password" id="password" name="password" placeholder="请输入密码" required>
       </div>
+      <div id="loginMsg" style="color:#e63946; font-size:0.85rem; text-align:center; margin-bottom:8px; display:none;"></div>
       <button type="submit" class="btn btn-accent" style="width:100%; padding: 12px;">
         🔓 登录后台
       </button>
     </form>
 
     <div class="auth-tip">
-      💡 演示账号:<code>admin</code> · 密码:<code>hutb@2026</code>
+      🔒 联系 ACM 管理员获取账号密码
     </div>
 
     <div style="text-align:center; margin-top: var(--sp-4); font-size: 0.825rem;">
@@ -47,22 +48,38 @@
 
 <script src="js/data.js"></script>
 <script>
-  // 已登录直接跳到 admin
-  if (HUTBData.isLoggedIn()) {
-    location.href = 'admin.html';
-  }
-  document.getElementById('loginForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const u = e.target.username.value.trim();
-    const p = e.target.password.value;
-    const r = HUTBData.login(u, p);
-    if (r.ok) {
-      HUTB.toast('登录成功');
-      setTimeout(() => location.href = 'admin.html', 600);
-    } else {
-      HUTB.toast(r.message || '登录失败');
+  (async function() {
+    if (await HUTBData.isLoggedIn()) {
+      location.href = 'admin.html';
+      return;
     }
-  });
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('loginMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const u = form.username.value.trim();
+      const p = form.password.value;
+      const btn = form.querySelector('button[type=submit]');
+      btn.disabled = true;
+      btn.textContent = '⏳ 登录中...';
+
+      const r = await HUTBData.login(u, p);
+      btn.disabled = false;
+      btn.textContent = '🔓 登录后台';
+
+      if (r && r.ok) {
+        msg.style.color = '#2a9d8f';
+        msg.textContent = '✅ 登录成功，跳转中...';
+        msg.style.display = 'block';
+        setTimeout(() => location.href = 'admin.html', 500);
+      } else {
+        msg.style.color = '#e63946';
+        msg.textContent = r.message || '❌ 账号或密码错误';
+        msg.style.display = 'block';
+      }
+    });
+  })();
 </script>
 </body>
 </html>
