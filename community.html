@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社区 · 湖工商生活指南</title>
+  <link rel="icon" href="assets/acm-logo.png">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/community.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" media="print" onload="this.media='all'">
+</head>
+<body>
+
+<!-- 顶栏 -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-logo">
+      <img src="assets/acm-logo.png" alt="ACM"> 湖工商生活指南
+    </a>
+    <nav class="topbar-nav">
+      <a href="index.html">首页</a>
+      <a href="food.html">美食</a>
+      <a href="travel.html">游玩</a>
+      <a href="study.html">学习</a>
+      <a href="freshman.html">迎新</a>
+      <a href="community.html" class="active">社区</a>
+    </nav>
+    <div class="topbar-user" id="topbarUser">
+      <!-- JS 渲染 -->
+    </div>
+  </div>
+</header>
+
+<!-- 社区标题区 -->
+<section class="comm-hero">
+  <div class="comm-hero-inner">
+    <h1>🏠 湖工商社区</h1>
+    <p>分享生活、问答互助、认识同学</p>
+    <div class="comm-hero-actions">
+      <button class="btn btn-accent" id="postBtn">✏️ 发布帖子</button>
+      <span class="comm-hero-tip">登录后可发帖/点赞/评论</span>
+    </div>
+  </div>
+</section>
+
+<!-- 筛选区 -->
+<section class="comm-filter-bar">
+  <div class="comm-filter-inner">
+    <div class="comm-filter-tags" id="tagFilters">
+      <button class="tag-btn active" data-tag="">全部</button>
+      <button class="tag-btn" data-tag="#迎新">#迎新</button>
+      <button class="tag-btn" data-tag="#美食">#美食</button>
+      <button class="tag-btn" data-tag="#学习">#学习</button>
+      <button class="tag-btn" data-tag="#旅游">#旅游</button>
+      <button class="tag-btn" data-tag="#吐槽">#吐槽</button>
+      <button class="tag-btn" data-tag="#求助">#求助</button>
+      <button class="tag-btn" data-tag="#安利">#安利</button>
+    </div>
+    <div class="comm-search">
+      <input type="text" id="searchInput" placeholder="🔍 搜索帖子标题/内容...">
+    </div>
+  </div>
+</section>
+
+<!-- 帖子列表 -->
+<main class="comm-main">
+  <div class="comm-list" id="postList">
+    <!-- JS 渲染 -->
+    <div class="comm-empty" id="emptyState">
+      <p>😶 还没有帖子，快来抢沙发！</p>
+    </div>
+  </div>
+</main>
+
+<!-- 发帖弹窗 -->
+<div class="modal-overlay" id="postModal" style="display:none;">
+  <div class="modal post-modal">
+    <div class="modal-head">
+      <h3>✏️ 发布新帖子</h3>
+      <button class="modal-close" id="closePostModal">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="postForm">
+        <div class="field">
+          <label for="postTitle">标题 <span style="color:#dc3545;">*</span></label>
+          <input type="text" id="postTitle" name="title" placeholder="简洁明了，一眼看出内容（限60字）" maxlength="60" required>
+        </div>
+        <div class="field">
+          <label for="postContent">正文 <span style="color:#dc3545;">*</span></label>
+          <textarea id="postContent" name="content" rows="7" placeholder="分享你的经验、提问、吐槽...（限3000字）" maxlength="3000" required></textarea>
+          <div class="field-hint">剩余 <span id="contentCharCount">0</span> / 3000 字</div>
+        </div>
+        <div class="field">
+          <label>话题标签（可选，选1-3个）</label>
+          <div class="tag-picker" id="tagPicker">
+            <button type="button" class="tag-opt" data-tag="#迎新">#迎新</button>
+            <button type="button" class="tag-opt" data-tag="#美食">#美食</button>
+            <button type="button" class="tag-opt" data-tag="#学习">#学习</button>
+            <button type="button" class="tag-opt" data-tag="#旅游">#旅游</button>
+            <button type="button" class="tag-opt" data-tag="#吐槽">#吐槽</button>
+            <button type="button" class="tag-opt" data-tag="#求助">#求助</button>
+            <button type="button" class="tag-opt" data-tag="#安利">#安利</button>
+          </div>
+        </div>
+        <div id="postMsg" class="auth-msg"></div>
+      </form>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" id="cancelPost">取消</button>
+      <button class="btn btn-accent" id="submitPost">🚀 发布</button>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子详情弹窗 -->
+<div class="modal-overlay" id="detailModal" style="display:none;">
+  <div class="modal post-modal post-modal-detail">
+    <div class="modal-head">
+      <h3 id="detailTitle">帖子标题</h3>
+      <button class="modal-close" id="closeDetailModal">×</button>
+    </div>
+    <div class="modal-body" id="detailBody">
+      <!-- JS 渲染 -->
+    </div>
+    <!-- 评论区 -->
+    <div class="detail-comments-section" id="detailComments">
+      <div class="detail-comments-head">
+        <span id="commentCount">0</span> 条评论
+      </div>
+      <div class="detail-comments-list" id="commentsList">
+        <!-- JS 渲染 -->
+      </div>
+      <!-- 发表评论 -->
+      <div class="comment-form" id="commentFormWrap" style="display:none;">
+        <textarea id="commentInput" placeholder="写下你的评论..." rows="3" maxlength="500"></textarea>
+        <div class="comment-form-foot">
+          <span class="field-hint" id="commentCharHint">0/500</span>
+          <button class="btn btn-accent btn-sm" id="submitComment">发表评论</button>
+        </div>
+      </div>
+      <div class="comment-login-tip" id="commentLoginTip">
+        <a href="auth.html">登录</a> 后才能评论
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 提示toast -->
+<div id="toast" class="toast" style="display:none;"></div>
+
+<script src="js/user.js"></script>
+<script src="js/community.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ===================== 全局状态 ===================== */
+  let currentTag = '';
+  let currentSearch = '';
+  let currentUser = null;
+  let currentDetailPost = null; // 当前查看的帖
+
+  /* ===================== 工具 ===================== */
+  function toast(msg, duration) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.style.opacity = '1';
+    clearTimeout(el._t);
+    el._t = setTimeout(() => {
+      el.style.opacity = '0';
+      setTimeout(() => { el.style.display = 'none'; }, 300);
+    }, duration || 2200);
+  }
+
+  function timeAgo(ts) {
+    const diff = Date.now() - ts;
+    const m = Math.floor(diff / 60000);
+    if (m < 1) return '刚刚';
+    if (m < 60) return m + '分钟前';
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + '小时前';
+    const d = Math.floor(h / 24);
+    if (d < 30) return d + '天前';
+    const d2 = new Date(ts);
+    return d2.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+  }
+
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/\n/g, '<br>');
+  }
+
+  /* ===================== 初始化 ===================== */
+  function init() {
+    currentUser = User.getSession();
+
+    renderTopbar();
+    renderPostList();
+
+    // 事件绑定
+    document.getElementById('postBtn').addEventListener('click', onPostBtn);
+    document.getElementById('closePostModal').addEventListener('click', closePostModal);
+    document.getElementById('cancelPost').addEventListener('click', closePostModal);
+    document.getElementById('closeDetailModal').addEventListener('click', closeDetailModal);
+    document.getElementById('postModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('postModal')) closePostModal();
+    });
+    document.getElementById('detailModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('detailModal')) closeDetailModal();
+    });
+
+    // 话题筛选
+    document.getElementById('tagFilters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tag-btn');
+      if (!btn) return;
+      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTag = btn.dataset.tag;
+      renderPostList();
+    });
+
+    // 搜索
+    const searchInput = document.getElementById('searchInput');
+    let searchTimer;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        currentSearch = searchInput.value.trim();
+        renderPostList();
+      }, 350);
+    });
+
+    // 发帖字数统计
+    document.getElementById('postContent').addEventListener('input', () => {
+      document.getElementById('contentCharCount').textContent =
+        document.getElementById('postContent').value.length;
+    });
+    document.getElementById('commentInput').addEventListener('input', () => {
+      document.getElementById('commentCharHint').textContent =
+        document.getElementById('commentInput').value.length + '/500';
+    });
+
+    // 话题标签多选
+    document.getElementById('tagPicker').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tag-opt');
+      if (!btn) return;
+      btn.classList.toggle('active');
+    });
+
+    // 发布按钮
+    document.getElementById('submitPost').addEventListener('click', onSubmitPost);
+    document.getElementById('submitComment').addEventListener('click', onSubmitComment);
+
+    // ESC关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePostModal();
+        closeDetailModal();
+      }
+    });
+  }
+
+  /* ===================== 顶栏用户区 ===================== */
+  function renderTopbar() {
+    const el = document.getElementById('topbarUser');
+    if (currentUser) {
+      el.innerHTML = `
+        <span class="topbar-username">👤 ${currentUser.username}</span>
+        <button class="btn btn-sm" onclick="location.href='auth.html'">退出</button>
+      `;
+    } else {
+      el.innerHTML = `
+        <a href="auth.html" class="btn btn-sm btn-accent">登录 / 注册</a>
+      `;
+      document.getElementById('postBtn').addEventListener('click', () => {
+        toast('请先登录后再发帖');
+        setTimeout(() => location.href = 'auth.html', 800);
+      });
+    }
+  }
+
+  /* ===================== 帖子列表 ===================== */
+  function renderPostList() {
+    const filter = {};
+    if (currentTag) filter.tag = currentTag;
+    if (currentSearch) filter.search = currentSearch;
+    const posts = Community.getPosts(filter);
+    const list = document.getElementById('postList');
+    const empty = document.getElementById('emptyState');
+
+    if (!posts.length) {
+      list.innerHTML = '';
+      list.appendChild(empty);
+      empty.style.display = 'block';
+      empty.querySelector('p').textContent =
+        currentSearch ? '😶 没找到相关帖子，换个关键词试试？' :
+        currentTag ? `😶 还没有 #${currentTag.replace('#','')} 的帖子，抢沙发！` :
+        '😶 还没有帖子，快来抢沙发！';
+      return;
+    }
+
+    empty.style.display = 'none';
+    list.innerHTML = posts.map(post => renderPostCard(post)).join('');
+
+    // 绑定事件
+    list.querySelectorAll('.post-card').forEach(card => {
+      const id = card.dataset.id;
+
+      // 点赞
+      card.querySelector('.like-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!currentUser) { toast('登录后才能点赞'); return; }
+        const newCount = Community.toggleLike(id, currentUser.username);
+        card.querySelector('.like-count').textContent = newCount || '赞';
+        const btn = card.querySelector('.like-btn');
+        const liked = Community.hasLiked(id, currentUser.username);
+        btn.classList.toggle('liked', liked);
+        btn.textContent = liked ? '❤️' : '🤍';
+      });
+
+      // 评论数
+      card.querySelector('.comment-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDetail(id);
+      });
+
+      // 整卡点击打开详情
+      card.addEventListener('click', () => openDetail(id));
+    });
+  }
+
+  function renderPostCard(post) {
+    const tags = (post.tags || []).map(t =>
+      `<span class="post-card-tag" onclick="event.stopPropagation();filterByTag('${t}')">${t}</span>`
+    ).join('');
+    const likeCount = Community.getLikeCount(post.id);
+    const liked = currentUser ? Community.hasLiked(post.id, currentUser.username) : false;
+    const cardBg = post.commentCount > 3 ? 'post-card-hot' : '';
+    return `
+      <article class="post-card ${cardBg}" data-id="${post.id}">
+        <div class="post-card-head">
+          <div class="post-card-author">
+            <span class="post-avatar">${(post.author || 'A')[0].toUpperCase()}</span>
+            <span class="post-author-name">${escapeHtml(post.author)}</span>
+            <span class="post-time">${timeAgo(post.createdAt)}</span>
+          </div>
+          <div class="post-card-tags">${tags}</div>
+        </div>
+        <h3 class="post-card-title">${escapeHtml(post.title)}</h3>
+        <p class="post-card-excerpt">${escapeHtml(post.content.slice(0, 160))}${post.content.length > 160 ? '...' : ''}</p>
+        <div class="post-card-foot">
+          <button class="like-btn ${liked ? 'liked' : ''}">
+            ${liked ? '❤️' : '🤍'} <span class="like-count">${likeCount || '赞'}</span>
+          </button>
+          <button class="comment-btn">💬 <span>${post.commentCount || 0}</span></button>
+          <span class="post-card-read-more" onclick="event.stopPropagation();openDetail('${post.id}')">阅读全文 →</span>
+        </div>
+      </article>
+    `;
+  }
+
+  /* 暴露给 onclick */
+  window.filterByTag = function(tag) {
+    document.querySelectorAll('.tag-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tag === tag);
+    });
+    currentTag = tag;
+    renderPostList();
+  };
+
+  /* ===================== 发帖弹窗 ===================== */
+  function onPostBtn() {
+    if (!currentUser) { toast('登录后才能发帖'); return; }
+    document.getElementById('postModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('postTitle').focus();
+  }
+
+  function closePostModal() {
+    document.getElementById('postModal').style.display = 'none';
+    document.body.style.overflow = '';
+    document.getElementById('postForm').reset();
+    document.getElementById('contentCharCount').textContent = '0';
+    document.getElementById('postMsg').textContent = '';
+    document.querySelectorAll('#tagPicker .tag-opt').forEach(b => b.classList.remove('active'));
+  }
+
+  function onSubmitPost() {
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    const selectedTags = Array.from(document.querySelectorAll('#tagPicker .tag-opt.active'))
+      .map(b => b.dataset.tag);
+    const msg = document.getElementById('postMsg');
+
+    if (!title) { msg.textContent = '❌ 请填写标题'; msg.className = 'auth-msg auth-msg-err'; return; }
+    if (!content) { msg.textContent = '❌ 请填写正文'; msg.className = 'auth-msg auth-msg-err'; return; }
+
+    const r = Community.createPost({ title, content, tags: selectedTags }, currentUser.username);
+    if (r.ok) {
+      toast('🎉 发布成功！');
+      closePostModal();
+      renderPostList();
+    } else {
+      msg.textContent = '❌ ' + r.message;
+      msg.className = 'auth-msg auth-msg-err';
+    }
+  }
+
+  /* ===================== 帖子详情弹窗 ===================== */
+  function openDetail(id) {
+    const post = Community.getPost(id);
+    if (!post) { toast('帖子不存在'); return; }
+    currentDetailPost = post;
+    document.getElementById('detailTitle').textContent = post.title;
+    renderDetailBody(post);
+    document.getElementById('detailModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderDetailBody(post) {
+    const tags = (post.tags || []).map(t =>
+      `<span class="post-card-tag" onclick="filterByTag('${t}')">${t}</span>`
+    ).join('');
+    const likeCount = Community.getLikeCount(post.id);
+    const liked = currentUser ? Community.hasLiked(post.id, currentUser.username) : false;
+    const canDelete = currentUser && currentUser.username === post.author;
+
+    document.getElementById('detailBody').innerHTML = `
+      <div class="detail-meta">
+        <div class="detail-author">
+          <span class="post-avatar">${(post.author || 'A')[0].toUpperCase()}</span>
+          <span>${escapeHtml(post.author)}</span>
+          <span class="post-time">${timeAgo(post.createdAt)}</span>
+          ${canDelete ? `<button class="btn btn-sm btn-del" onclick="deletePost('${post.id}')">🗑 删除</button>` : ''}
+        </div>
+        <div class="detail-tags">${tags}</div>
+      </div>
+      <div class="detail-content">${escapeHtml(post.content)}</div>
+      <div class="detail-actions">
+        <button class="like-btn ${liked ? 'liked' : ''}" id="detailLikeBtn">
+          ${liked ? '❤️' : '🤍'} <span id="detailLikeCount">${likeCount || 0}</span> 赞
+        </button>
+        <span class="detail-comment-label">💬 ${post.commentCount || 0} 条评论</span>
+      </div>
+    `;
+
+    // 点赞
+    document.getElementById('detailLikeBtn').addEventListener('click', () => {
+      if (!currentUser) { toast('登录后才能点赞'); return; }
+      const newCount = Community.toggleLike(post.id, currentUser.username);
+      document.getElementById('detailLikeCount').textContent = newCount;
+      const btn = document.getElementById('detailLikeBtn');
+      const nowLiked = Community.hasLiked(post.id, currentUser.username);
+      btn.innerHTML = `${nowLiked ? '❤️' : '🤍'} <span>${newCount}</span> 赞`;
+      btn.classList.toggle('liked', nowLiked);
+      renderPostList();
+    });
+
+    // 评论
+    renderComments(post);
+    if (currentUser) {
+      document.getElementById('commentFormWrap').style.display = '';
+      document.getElementById('commentLoginTip').style.display = 'none';
+    } else {
+      document.getElementById('commentFormWrap').style.display = 'none';
+      document.getElementById('commentLoginTip').style.display = '';
+    }
+  }
+
+  /* ===================== 评论 ===================== */
+  function renderComments(post) {
+    const list = document.getElementById('commentsList');
+    const count = document.getElementById('commentCount');
+    const comments = post.comments || [];
+    count.textContent = comments.length;
+
+    if (!comments.length) {
+      list.innerHTML = '<p class="comments-empty">还没有评论，快来抢沙发！</p>';
+      return;
+    }
+
+    list.innerHTML = comments.map(c => {
+      const canDelete = currentUser && currentUser.username === c.author;
+      return `
+        <div class="comment-item" id="cmt-${c.id}">
+          <div class="comment-avatar">${(c.author || 'A')[0].toUpperCase()}</div>
+          <div class="comment-body">
+            <div class="comment-meta">
+              <span class="comment-author">${escapeHtml(c.author)}</span>
+              <span class="comment-time">${timeAgo(c.createdAt)}</span>
+              ${canDelete ? `<button class="btn-del-cmt" onclick="deleteComment('${post.id}','${c.id}')">🗑</button>` : ''}
+            </div>
+            <div class="comment-content">${escapeHtml(c.content)}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function onSubmitComment() {
+    if (!currentUser) { toast('登录后才能评论'); return; }
+    const content = document.getElementById('commentInput').value.trim();
+    if (!content) { toast('评论内容不能为空'); return; }
+    const r = Community.addComment(currentDetailPost.id, currentUser.username, content);
+    if (r.ok) {
+      document.getElementById('commentInput').value = '';
+      document.getElementById('commentCharHint').textContent = '0/500';
+      // 刷新帖子
+      currentDetailPost = Community.getPost(currentDetailPost.id);
+      renderDetailBody(currentDetailPost);
+      renderPostList();
+      toast('评论成功！');
+    } else {
+      toast(r.message || '评论失败');
+    }
+  }
+
+  /* 暴露给 onclick */
+  window.deletePost = function(id) {
+    if (!confirm('确定删除这篇帖子？')) return;
+    const r = Community.deletePost(id, currentUser.username);
+    if (r.ok) {
+      closeDetailModal();
+      renderPostList();
+      toast('已删除');
+    } else {
+      toast(r.message);
+    }
+  };
+
+  window.deleteComment = function(postId, commentId) {
+    const r = Community.deleteComment(postId, commentId, currentUser.username);
+    if (r.ok) {
+      currentDetailPost = Community.getPost(postId);
+      renderDetailBody(currentDetailPost);
+      renderPostList();
+      toast('已删除');
+    }
+  };
+
+  function closeDetailModal() {
+    document.getElementById('detailModal').style.display = 'none';
+    document.body.style.overflow = '';
+    currentDetailPost = null;
+  }
+
+  /* ===================== 启动 ===================== */
+  init();
+
+})();
+</script>
+</body>
+</html>
