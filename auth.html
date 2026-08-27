@@ -80,7 +80,17 @@
 
 <script src="js/user.js"></script>
 <script>
+// 全局错误捕获
+window.addEventListener('error', function(e) {
+  console.error('[JS Error]', e.message, e.filename + ':' + e.lineno);
+});
+
 (function () {
+  // 检查 User 对象是否存在
+  if (typeof User === 'undefined') {
+    document.body.innerHTML = '<div style="padding:40px;text-align:center;color:#c00;">⚠️ user.js 加载失败，请刷新重试</div>';
+    return;
+  }
   // 已登录直接去社区
   if (User && User.isLoggedIn()) {
     location.href = 'community.html';
@@ -97,7 +107,17 @@
     btn.textContent = '⏳ 登录中...';
     msg.textContent = '';
 
-    const r = await User.login(u, p);
+    let r;
+    try {
+      r = await User.login(u, p);
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = '🔑 登录';
+      msg.textContent = '❌ 登录失败：' + err.message;
+      msg.className = 'auth-msg auth-msg-err';
+      console.error('[Login Error]', err);
+      return;
+    }
     btn.disabled = false;
     btn.textContent = '🔑 登录';
 
