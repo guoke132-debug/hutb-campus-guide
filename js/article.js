@@ -82,6 +82,13 @@
   }
 
   function renderMetaCard(type, item, cfg) {
+    // 生成地图导航按钮（location 字段）
+    const mapBtn = item.location ? `
+      <div style="margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid rgba(255,255,255,0.3); display:flex; gap:var(--sp-3); flex-wrap:wrap;">
+        <a href="https://map.qq.com/?search=${encodeURIComponent(item.location)}" target="_blank" class="btn" style="background:rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4); font-size:0.85rem;">📍 腾讯地图</a>
+        <a href="https://uri.amap.com/search?keyword=${encodeURIComponent(item.location)}" target="_blank" class="btn" style="background:rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4); font-size:0.85rem;">🗺️ 高德导航</a>
+      </div>` : '';
+
     if (type === 'food') {
       const dishes = (item.recommendedDishes || []).map((d) => `<span class="tag tag-acc" style="margin: 2px;">${HUTB.escape(d)}</span>`).join(' ');
       return `
@@ -92,6 +99,7 @@
             ${item.rating ? `<div>⭐ <b>评分</b>: ${item.rating.toFixed(1)} / 5.0</div>` : ''}
           </div>
           ${dishes ? `<div style="margin-top: var(--sp-3);"><b>推荐菜品:</b> ${dishes}</div>` : ''}
+          ${mapBtn}
         </div>`;
     }
     if (type === 'travel') {
@@ -104,6 +112,7 @@
             <div>💰 <b>费用</b>: ${HUTB.escape(item.cost || '免费')}</div>
           </div>
           ${item.transport ? `<div style="margin-top: var(--sp-3);">🚆 <b>交通</b>: ${HUTB.escape(item.transport)}</div>` : ''}
+          ${mapBtn}
         </div>`;
     }
     return '';
