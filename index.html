@@ -113,6 +113,69 @@
   <div class="card-grid" id="entryGrid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));"></div>
 </section>
 
+<!-- ==================== 校园地图（折中方案：内嵌+跳转） ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="section-title">
+    <span class="section-title-icon">🗺️</span>
+    校园地图
+    <small style="font-size:0.875rem; color:var(--c-text-muted); font-weight:400; margin-left:var(--sp-2);">北校区 · 望城区</small>
+  </div>
+  <p class="section-sub">点击地图右下角可跳转腾讯地图/高德地图进行导航。</p>
+
+  <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12);">
+    <iframe
+      id="campus-map"
+      width="100%" height="420"
+      frameborder="0"
+      style="border:0;"
+      referrerpolicy="no-referrer-when-downgrade"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div style="display:flex; gap:var(--sp-3); margin-top:var(--sp-4); flex-wrap:wrap;">
+    <a id="map-qq-btn" href="#" target="_blank" class="btn btn-accent">📍 腾讯地图导航</a>
+    <a id="map-amap-btn" href="#" target="_blank" class="btn btn-secondary">🗺️ 高德地图导航</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  // 湖南工商大学北校区坐标（Wikipedia 公开数据）
+  var lat = 28.22697;
+  var lng = 112.919483;
+
+  // 方案A: Google Maps embed（零Key，最折中）
+  var gmapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.0!2d' + lng + '!3d' + lat + '!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDEzJzM3IjNCJXAxMjnCsDU1JzEwLjgiRQ!5e0!3m2!1szh-CN!2scn!4v1';
+
+  // 备用：腾讯地图网页版（非API，不用Key）
+  var qqMapUrl = 'https://apis.map.qq.com/rptr/mapPlaceAndNavigation?places=%E6%B9%96%E5%8D%97%E5%B7%A5%E5%95%86%E5%A4%A7%E5%AD%A6%E5%8C%97%E6%A0%A1%E5%8C%BA&points=' + lng + ',' + lat + '&pointx=' + lng + '&pointy=' + lat + '&type=1&zoom=16&referer=hutb_campus';
+  var qqWebUrl = 'https://map.qq.com/?center=' + lat + ',' + lng + '&zoom=16&type=2&_from=webmap';
+
+  // 备用：高德地图分享链接
+  var amapUrl = 'https://uri.amap.com/navigation?to=112.919483,28.22697,湖南工商大学(北校区)&mode=car&callnative=1';
+
+  var iframe = document.getElementById('campus-map');
+  var qqBtn = document.getElementById('map-qq-btn');
+  var amapBtn = document.getElementById('map-amap-btn');
+
+  // 优先用 Google Maps 嵌入
+  iframe.src = gmapUrl;
+  iframe.title = '湖南工商大学北校区地图';
+  amapBtn.href = amapUrl;
+
+  // 腾讯地图：尝试 URI 跳转
+  qqBtn.href = qqWebUrl;
+
+  // 如果 Google Maps 加载失败（国内可能打不开），切换备用
+  iframe.onerror = function(){
+    // 切换到腾讯地图网页版 iframe
+    iframe.src = 'https://apis.map.qq.com/rptr/mapPlaceAndNavigation?places=%E6%B9%96%E5%8D%97%E5%B7%A5%E5%95%86%E5%A4%A7%E5%AD%A6&points=' + lng + ',' + lat + '&pointx=' + lng + '&pointy=' + lat + '&type=1&zoom=15&referer=hutb_campus';
+  };
+})();
+</script>
+
 <!-- ==================== 精选内容（每个板块一条） ==================== -->
 <section class="container reveal" style="padding-bottom: var(--sp-8);">
   <div class="section-title">
