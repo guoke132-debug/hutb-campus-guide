@@ -5,9 +5,10 @@
 (function () {
   'use strict';
 
-  function init() {
-    const settings = HUTBData.getSettings();
-    const sections = HUTBData.getSections();
+  async function init() {
+    await HUTBData.ensureSeed();
+    const settings = await HUTBData.getSettings();
+    const sections = await HUTBData.getSections();
 
     // hero 副标题
     const heroSub = document.getElementById('heroSub');
@@ -19,8 +20,8 @@
 
     // 各渲染环节互不影响，单点失败不阻断其余
     try { renderEntryCards(sections); } catch (e) { console.error('[main] renderEntryCards 失败:', e); }
-    try { renderFeatured(); } catch (e) { console.error('[main] renderFeatured 失败:', e); }
-    try { renderHotCard(); } catch (e) { console.error('[main] renderHotCard 失败:', e); }
+    try { await renderFeatured(); } catch (e) { console.error('[main] renderFeatured 失败:', e); }
+    try { await renderHotCard(); } catch (e) { console.error('[main] renderHotCard 失败:', e); }
     try { initVideoChannelLightbox(); } catch (e) { console.error('[main] initVideoChannelLightbox 失败:', e); }
   }
 
@@ -53,15 +54,15 @@
     grid.innerHTML = html;
   }
 
-  function renderFeatured() {
+  async function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
 
     const collected = [];
-    ['food', 'travel', 'study', 'freshman'].forEach((sec) => {
-      const items = HUTBData.listAll(sec).slice(0, 2);
+    for (const sec of ['food', 'travel', 'study', 'freshman']) {
+      const items = (await HUTBData.listAll(sec)).slice(0, 2);
       items.forEach((it) => collected.push(Object.assign({}, it, { _section: sec })));
-    });
+    }
 
     const sorted = collected.sort((a, b) => {
       const pa = a.pinned ? 1 : 0;
@@ -107,12 +108,12 @@
     }).join('');
   }
 
-  function renderHotCard() {
+  async function renderHotCard() {
     const sections = ['food', 'travel', 'study', 'freshman'];
     let hotItem = null;
     let hotSection = 'food';
     for (const sec of sections) {
-      const found = HUTBData.listAll(sec).find((x) => x.pinned);
+      const found = (await HUTBData.listAll(sec)).find((x) => x.pinned);
       if (found) { hotItem = found; hotSection = sec; break; }
     }
     if (!hotItem) return;
@@ -126,11 +127,11 @@
     const listEl = document.getElementById('hotCardList');
     if (!listEl) return;
     const topPinned = [];
-    sections.forEach((sec) => {
-      const items = HUTBData.listAll(sec);
+    for (const sec of sections) {
+      const items = await HUTBData.listAll(sec);
       const pin = items.find((x) => x.pinned);
       if (pin) topPinned.push(Object.assign({}, pin, { _section: sec }));
-    });
+    }
     if (!topPinned.length) return;
     const iconMap = {
       food: { ic: '🍱', color: '#ee6c4d' },

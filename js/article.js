@@ -12,7 +12,7 @@
     freshman: { name: '新生事项', color: '#7cb518', icon: '🎒', backUrl: 'freshman.html' },
   };
 
-  function init() {
+  async function init() {
     const params = new URLSearchParams(location.search);
     const type = params.get('type');
     const id = params.get('id');
@@ -22,13 +22,14 @@
       return;
     }
 
-    const item = HUTBData.get(type, id);
+    await HUTBData.ensureSeed();
+    const item = await HUTBData.get(type, id);
     if (!item || item.published === false) {
       renderNotFound();
       return;
     }
     renderArticle(type, item);
-    renderPrevNext(type, id);
+    await renderPrevNext(type, id);
   }
 
   function renderNotFound() {
@@ -118,8 +119,8 @@
     return '';
   }
 
-  function renderPrevNext(type, id) {
-    const items = HUTBData.list(type);
+  async function renderPrevNext(type, id) {
+    const items = await HUTBData.list(type);
     const idx = items.findIndex((x) => x.id === id);
     const nav = document.getElementById('prevNextNav');
     if (idx < 0) {

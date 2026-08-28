@@ -9,14 +9,15 @@
   let currentCategory = 'all';
   let searchText = '';
 
-  function init() {
+  async function init() {
+    await HUTBData.ensureSeed();
     buildCategories();
     bindSearch();
     render();
   }
 
-  function buildCategories() {
-    const cats = HUTBData.listCategories(SECTION);
+  async function buildCategories() {
+    const cats = await HUTBData.listCategories(SECTION);
     const tabs = [{ id: 'all', name: '全部', icon: '📋' }].concat(cats);
     const c = document.getElementById('filterTabs');
     c.innerHTML = tabs.map((cat) =>
@@ -41,8 +42,9 @@
     });
   }
 
-  function getItems() {
-    return HUTBData.list(SECTION).filter((it) => {
+  async function getItems() {
+    const all = await HUTBData.list(SECTION);
+    return all.filter((it) => {
       if (currentCategory !== 'all' && it.category !== currentCategory) return false;
       if (searchText) {
         const blob = [
@@ -55,10 +57,10 @@
     });
   }
 
-  function render() {
+  async function render() {
     const grid = document.getElementById('cardGrid');
     const total = document.getElementById('totalCount');
-    const items = getItems();
+    const items = await getItems();
     total.textContent = items.length;
 
     if (!items.length) {
