@@ -133,14 +133,30 @@
       if (pin) topPinned.push(Object.assign({}, pin, { _section: sec }));
     }
     if (!topPinned.length) return;
+    if (typeof HUTB_FEATURED_GAMES !== 'undefined' && HUTB_FEATURED_GAMES) {
+      HUTB_FEATURED_GAMES.filter(function(g){return g.pinned;}).forEach(function(g){
+        topPinned.unshift(Object.assign({}, g, { _section: 'game' }));
+      });
+    }
     const iconMap = {
       food: { ic: '🍱', color: '#ee6c4d' },
       travel: { ic: '🌊', color: '#52a6b8' },
       study: { ic: '📚', color: '#1e6091' },
       freshman: { ic: '🎒', color: '#7cb518' },
+      game: { ic: '🎮', color: '#9b5de5' },
     };
     listEl.innerHTML = topPinned.slice(0, 4).map((it) => {
       const m = iconMap[it._section] || iconMap.food;
+      if (it._section === 'game') {
+        return `
+        <li>
+          <a href="${it.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;">
+            <span class="ic" style="background:${m.color};color:#fff;">${m.ic}</span>
+            <span>${HUTB.escape(it.title)}</span>
+            <span style="margin-left:auto;font-size:0.75rem;color:#9b5de5;font-weight:600;">去玩 →</span>
+          </a>
+        </li>`;
+      }
       return `
         <li>
           <span class="ic" style="background:${m.color};color:#fff;">${m.ic}</span>
