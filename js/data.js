@@ -7,7 +7,7 @@
 
 const STORAGE_PREFIX='hutb_campus_';
 const VERSION_KEY=STORAGE_PREFIX+'version';
-const CURRENT_VERSION='1.2.0';
+const CURRENT_VERSION='1.3.0';
 
 /* ===================== 默认食堂数据 ===================== */
 const DEFAULT_FOOD=[
@@ -185,8 +185,8 @@ duration:'2-4小时',bestSeason:'春秋',cost:'¥0-80',
 rating:4.8,pinned:true,sortOrder:1,published:true,
 createdAt:'2026-08-01T08:00:00Z',updatedAt:'2026-08-05T08:00:00Z'},
 {id:'travel_002',title:'橘子洲头 · 湘江第一洲',category:'城市地标',cover:null,
-excerpt:'毛主席青年艺术雕塑，漫步湘江中央，建议坐小火车游览。',
-content:'<p>橘子洲是湘江中的长岛，青年毛泽东曾在此写下《沁园春·长沙》。核心看点是 32 米高的青年毛泽东艺术雕塑。</p><h4>实用信息</h4><ul><li>门票：免费（小火车 ¥40）</li><li>最佳游览：傍晚，看湘江日落</li><li>地铁：2号线橘子洲站</li></ul>',
+excerpt:'免费但须实名预约，32 米青年毛泽东雕塑，建议坐观光小火车，傍晚看湘江日落。',
+content:'<p>橘子洲是湘江中绵延数公里的长岛，青年毛泽东曾在此写下《沁园春·长沙》。核心看点是高 32 米、长 83 米、宽 41 米的青年毛泽东艺术雕塑，由八千多块福建永定红花岗岩拼接，寓意其 32 岁写就名篇。</p><h4>门票与预约</h4><ul><li>门票：免费，但须提前实名预约，无现场免约通道</li><li>预约：微信公众号「岳麓山橘子洲旅游区」，可提前 3 天预约（每日 0 点放票），节假日须放票即抢，刷身份证或预约码入园</li><li>开放：约 7:00-22:00（21:00-21:30 停止入园）</li></ul><h4>交通</h4><ul><li>地铁 2 号线「橘子洲·青莲站」（或橘子洲站）1/2 号口出站直达</li><li>五一广场乘地铁约 3-4 分钟可达，不建议打车或自驾（岛内禁社会车辆、大桥常限流）</li></ul><h4>观光小火车</h4><ul><li>往返 ￥40、单程 ￥25，学生及 60 岁以上半价 ￥20，1.2 米以下儿童免票</li><li>全长约 5 公里，全程步行往返近 3 小时（2 万步以上），九成游客坐车；每站可上下 1 次；末班约 21:00-21:30</li></ul><h4>必看与机位</h4><ul><li>青年毛泽东雕塑、问天台（俯瞰湘江与岳麓山，日落机位）、望江亭／枕江亭（框景拍雕像）、《沁园春·长沙》诗词碑</li><li>最佳时段：上午 7:30-10:00（人少光柔）、傍晚 17:00-19:00（日落氛围）；最佳季节春秋，10-12 月橘子成熟可联游岳麓山、湖南省博物馆</li></ul><p>资料来源：微信公众号「岳麓山橘子洲旅游区」预约须知，及今日头条、Trip.com 等长沙橘子洲公开攻略（2026）。</p>',
 tags:['景点','地标','拍照'],location:'长沙市岳麓区橘子洲',
 transport:'地铁2号线橘子洲站，步行至洲头',
 duration:'2-3小时',bestSeason:'四季',cost:'¥0-40',
@@ -217,8 +217,8 @@ duration:'1-3小时',bestSeason:'四季',cost:'¥0-30',
 rating:4.3,pinned:false,sortOrder:5,published:true,
 createdAt:'2026-08-01T08:00:00Z',updatedAt:'2026-08-05T08:00:00Z'}
 ,{id:'travel_006',title:'大泽湖近自然湿地公园',category:'望城公园',cover:null,
-excerpt:'2025端午新开放,环湖绿道+滑板乐园+浅滩戏水,距校约3.7km。',
-content:'<p>大泽湖近自然湿地公园于2025年端午节新开放,是望城新晋生态地标。环湖绿道串联碧水蓝天、白鹭齐飞;园内规划滑板乐园、浅滩戏水区、拓展乐园、研学乐园等,适合周末放风、亲子、骑行。</p><h4>实用信息</h4><ul><li>门票:免费</li><li>距北校区:约3.7km,骑车/打车可达</li><li>推荐:环湖骑行、滑板、观鸟</li><li>最佳:春夏季,绿意盎然</li></ul>',
+excerpt:'中部首个近自然湿地公园，2025 年开园，环湖骑行＋滑板乐园＋观鸟，距校约 3.7km。',
+content:'<p>大泽湖近自然湿地公园于 2025 年 5 月 30 日开园，是中部首个集生态涵养、智慧管理、科普教育、运动休闲于一体的近自然湿地公园。北起香炉洲大桥、南至回龙河风光带、西抵金星北路、东临湘江，总面积 2841 亩（一期 2046 亩、二期 795 亩），拥有 3.5 公里风雨连廊与约 30 公里游步道（含骑行道）。</p><h4>门票</h4><ul><li>免费开放</li></ul><h4>交通</h4><ul><li>自驾导航「大泽湖近自然湿地公园」，设 5 个入口与 5 个公共停车场（园外另有临时停车区约 2000 余车位）</li><li>地铁 4 号线罐子岭站 5 出站口右转步行 200 米，换乘 W226 大泽湖区间专线（罐子岭地铁站至大泽湖湿地公园西门，试运营 7:00-20:00，每日 14 趟）；亦可乘 W185、W131 等</li><li>距北校区约 3.7 公里，骑车或打车约 15 分钟</li></ul><h4>玩什么</h4><ul><li>儿童游乐区 4 万㎡（沙乐园、水乐园、滑板园等 12 个主题场地）、休闲娱乐区 2.6 万㎡（无动力攀爬滑梯）、滑板乐园、萌宠乐园、体育乐园、研学乐园 15 万㎡</li><li>台地花海 1.6 万㎡、城市稻田基地 400 余亩、金鸡菊花海（5 月盛花期）、白色旋转楼梯、稻田迷宫</li><li>4 万㎡超大草坪可野餐、放风筝、玩飞盘；湘江候鸟迁徙中转站，栖息 200 多种鸟类，3.5 公里廊桥与观鸟平台傍晚最佳</li></ul><h4>注意事项</h4><ul><li>园外车辆（含电动车）禁入；禁放风筝、禁游泳戏水、禁钓鱼、禁摘野菜、禁烧烤吸烟、非指定区域禁搭帐篷吊床；小型犬须拴绳</li><li>园区遮阳少、周边商业少，建议自备防晒帽、水壶与干粮</li></ul><p>资料来源：望城区大泽湖近自然湿地公园开园报道、W226 区间专线公交接驳信息与游园管理规定等公开内容（2025-2026）。</p>',
 tags:['公园','免费','新晋','骑行'],location:'长沙市望城区大泽湖街道·大泽湖近自然湿地公园',
 transport:'骑车/打车约15分钟,或乘公交至大泽湖片区',
 duration:'2-4小时',bestSeason:'春夏',cost:'¥0',
@@ -285,7 +285,7 @@ content:'<p>环球奥特莱斯购物中心是望城核心商圈,汇聚品牌折�
 tags:['购物','奥莱','水世界','商圈'],location:'长沙市望城区雷锋大道·环球奥特莱斯',
 transport:'骑车约10分钟,或公交288/W111至奥特莱斯',
 duration:'2-5小时',bestSeason:'四季',cost:'¥0起',
-rating:4.2,pinned:false,sortOrder:15,published:true,createdAt:'2026-08-01T08:00:00Z',updatedAt:'2026-08-28T08:00:00Z'}];
+rating:4.2,pinned:false,sortOrder:15,published:true,createdAt:'2026-08-01T08:00:00Z',updatedAt:'2026-08-28T08:00:00Z'},{id:'travel_016',title:'汉王陵公园 · 汉代王陵遗址',category:'望城公园',cover:null,excerpt:'汉代长沙王陵墓群，免费开放，汉印步道＋历史景墙，绿意寻古。',content:'<p>汉王陵公园依托汉代长沙王陵墓群（第七批全国重点文物保护单位）兴建，总面积约 217 公顷，含 12 座汉长沙国王陵，被称为「汉代诸侯王陵寝的百科全书」。主园区跨岳麓区与望城区交界（北二环与银杉路交汇），另有位于望城区银杉路 1375 号的汉王陵公园入口。</p><h4>门票</h4><ul><li>免费开放，展馆建议 16:00 前进园</li><li>园区曾因未完全开放采用节假日预约体验入园，暂无开放停车场，建议绿色出行</li></ul><h4>交通</h4><ul><li>公交 375/410/916/W106/W111/W117/W207/W213/W305 至桃花站；地铁 4 号线湘江新城站 2 出口往南约 825 米，或汉王陵公园站往北约 1.4 公里</li><li>公交「汉王陵公园站」可直达</li></ul><h4>看点</h4><ul><li>桃花岭汉墓（西汉晚期诸侯王墓，曾出土长沙王金印）、历史景墙（12 米×3 米浮雕，含吴芮受封、刘发筑台、降国为侯）、汉印步道（40 余枚汉印）、观景平台</li><li>博物馆藏漆器、玉器、简牍等 2000 余件文物，适合汉文化研学与周末寻古</li></ul><p>资料来源：汉长沙国考古遗址公园公开介绍、长沙文旅报道（2025）等。</p>',tags:['遗址','汉文化','免费','望城'],location:'长沙市望城区银杉路1375号·汉王陵公园',transport:'地铁4号线湘江新城站／汉王陵公园站，或公交至桃花站、汉王陵公园站',duration:'1-3小时',bestSeason:'四季',cost:'￥0',rating:4.5,pinned:false,sortOrder:16,published:true,createdAt:'2026-08-28T12:00:00Z',updatedAt:'2026-08-28T12:00:00Z'}];
 
 /* ===================== 默认学习场所数据 ===================== */
 const DEFAULT_STUDY=[
@@ -368,11 +368,11 @@ const DEFAULT_FOOD_CATEGORIES=[
 {id:'cat_food_04',name:'聚餐餐厅',icon:'🍻',sortOrder:4,count:1}
 ];
 const DEFAULT_TRAVEL_CATEGORIES=[
-{id:'cat_travel_01',name:'城市地标',icon:'🏛',sortOrder:1,count:2},
-{id:'cat_travel_02',name:'自然风光',icon:'⛰',sortOrder:2,count:1},
+{id:'cat_travel_01',name:'城市地标',icon:'🏛',sortOrder:1,count:3},
+{id:'cat_travel_02',name:'自然风光',icon:'⛰',sortOrder:2,count:3},
 {id:'cat_travel_03',name:'周末路线',icon:'🗺',sortOrder:3,count:1},
 {id:'cat_travel_04',name:'文化打卡',icon:'🎨',sortOrder:4,count:1},
-{id:'cat_travel_05',name:'望城公园',icon:'🌳',sortOrder:5,count:4},
+{id:'cat_travel_05',name:'望城公园',icon:'🌳',sortOrder:5,count:5},
 {id:'cat_travel_06',name:'古镇水乡',icon:'🏘',sortOrder:6,count:2}
 ];
 const DEFAULT_STUDY_CATEGORIES=[
@@ -381,7 +381,7 @@ const DEFAULT_STUDY_CATEGORIES=[
 ];
 const DEFAULT_FRESHMAN_CATEGORIES=[
 {id:'cat_fresh_01',name:'入学报到',icon:'📋',sortOrder:1,count:1},
-{id:'cat_fresh_02',name:'军训贴士',icon:'🎖',sortOrder:2,count:1},
+{id:'cat_fresh_02',name:'军训贴士',icon:'🎖',sortOrder:2,count:3},
 {id:'cat_fresh_03',name:'宿舍生活',icon:'🏠',sortOrder:3,count:1},
 {id:'cat_fresh_04',name:'防骗指南',icon:'🛡',sortOrder:4,count:1},
 {id:'cat_fresh_05',name:'必备清单',icon:'✅',sortOrder:5,count:1}
