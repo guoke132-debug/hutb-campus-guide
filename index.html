@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -212,13 +212,18 @@
     ACM 活动风采
   </div>
   <p class="section-sub">华硕校园合伙人的招新分享会、团建现场,一起看看我们的故事。</p>
-  <div class="gallery-grid">
-    <img src="assets/material/activity_01.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 1">
-    <img src="assets/material/activity_02.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 2">
-    <img src="assets/material/activity_03.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 3">
-    <img src="assets/material/activity_04.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 4">
-    <img src="assets/material/activity_05.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 5">
-    <img src="assets/material/activity_06.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 6">
+  <div class="activity-carousel" id="activityCarousel">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/activity_01.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 1"></div>
+      <div class="carousel-slide"><img src="assets/activity_02.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 2"></div>
+      <div class="carousel-slide"><img src="assets/activity_03.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 3"></div>
+      <div class="carousel-slide"><img src="assets/activity_04.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 4"></div>
+      <div class="carousel-slide"><img src="assets/activity_05.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 5"></div>
+      <div class="carousel-slide"><img src="assets/activity_06.jpg" data-zoom data-caption="ACM 活动瞬间" alt="ACM 活动风采 6"></div>
+    </div>
+    <button class="carousel-btn carousel-prev" type="button" aria-label="Prev">‹</button>
+    <button class="carousel-btn carousel-next" type="button" aria-label="Next">›</button>
+    <div class="carousel-dots" id="activityDots"></div>
   </div>
 </section>
 
@@ -418,5 +423,35 @@
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeImg(); });
 })();
 </script>
-</body>
+<script>
+(function(){
+  var c = document.getElementById('activityCarousel');
+  if(!c) return;
+  var track = c.querySelector('.carousel-track');
+  var slides = c.querySelectorAll('.carousel-slide');
+  var dotsWrap = document.getElementById('activityDots');
+  var n = slides.length;
+  if(n<=1) return;
+  var idx = 0, timer = null;
+  for(var i=0;i<n;i++){
+    var d = document.createElement('button');
+    d.type='button'; d.className='dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    (function(k){ d.addEventListener('click',function(){ go(k); }); })(i);
+    dotsWrap.appendChild(d);
+  }
+  function render(){
+    track.style.transform = 'translateX('+(-idx*100)+'%)';
+    var ds = dotsWrap.querySelectorAll('.dot');
+    for(var i=0;i<ds.length;i++){ ds[i].classList.toggle('active', i===idx); }
+  }
+  function go(k){ idx=(k%n+n)%n; render(); restart(); }
+  function restart(){ if(timer) clearInterval(timer); timer=setInterval(function(){ go(idx+1); },5000); }
+  c.querySelector('.carousel-next').addEventListener('click',function(){ go(idx+1); });
+  c.querySelector('.carousel-prev').addEventListener('click',function(){ go(idx-1); });
+  c.addEventListener('mouseenter',function(){ if(timer) clearInterval(timer); });
+  c.addEventListener('mouseleave', restart);
+  render(); restart();
+})();
+</script></body>
 </html>
