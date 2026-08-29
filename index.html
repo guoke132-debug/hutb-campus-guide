@@ -138,6 +138,25 @@
     </a>
   </div>
 
+  <!-- 手绘校区地图 -->
+  <div class="map-handdrawn">
+    <div class="map-grid">
+      <figure class="map-thumb" data-zoom data-src="assets/material/map_north.jpg" data-caption="北校区手绘地图">
+        <img src="assets/material/map_north.jpg" alt="北校区手绘地图">
+        <figcaption>📍 北校区</figcaption>
+      </figure>
+      <figure class="map-thumb" data-zoom data-src="assets/material/map_south.jpg" data-caption="南校区手绘地图">
+        <img src="assets/material/map_south.jpg" alt="南校区手绘地图">
+        <figcaption>📍 南校区</figcaption>
+      </figure>
+      <figure class="map-thumb" data-zoom data-src="assets/material/map_moon.jpg" data-caption="月亮岛校区手绘地图">
+        <img src="assets/material/map_moon.jpg" alt="月亮岛校区手绘地图">
+        <figcaption>📍 月亮岛</figcaption>
+      </figure>
+    </div>
+    <p class="map-hint">👆 点击地图查看高清大图</p>
+  </div>
+
   <!-- 地图嵌入 -->
   <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12);">
     <iframe
@@ -184,6 +203,46 @@
   <p class="section-sub">由编辑部筛选,每个板块推荐 1-2 份必看内容。</p>
 
   <div class="card-grid" id="featuredGrid"></div>
+</section>
+
+<!-- ==================== ACM 活动风采 ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="section-title">
+    <span class="section-title-icon">📸</span>
+    ACM 活动风采
+  </div>
+  <p class="section-sub">华硕校园合伙人的招新分享会、团建现场,一起看看我们的故事。</p>
+  <div class="gallery-grid">
+    <img src="assets/material/activity_01.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 1">
+    <img src="assets/material/activity_02.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 2">
+    <img src="assets/material/activity_03.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 3">
+    <img src="assets/material/activity_04.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 4">
+    <img src="assets/material/activity_05.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 5">
+    <img src="assets/material/activity_06.jpg" data-zoom data-caption="ACM 活动瞬间" class="gallery-img" alt="ACM 活动风采 6">
+  </div>
+</section>
+
+<!-- ==================== 新生实用信息 ==================== -->
+<section class="container reveal" style="padding-bottom: var(--sp-8);">
+  <div class="section-title">
+    <span class="section-title-icon">📋</span>
+    新生实用信息
+  </div>
+  <p class="section-sub">快递点、校历、校车、作息,一键查收。</p>
+  <div class="info-grid">
+    <figure class="info-card" data-zoom data-src="assets/material/express.jpg" data-caption="快递取件点一览">
+      <img src="assets/material/express.jpg" alt="快递取件点"><figcaption>📦 快递取件点</figcaption>
+    </figure>
+    <figure class="info-card" data-zoom data-src="assets/material/calendar.jpg" data-caption="2026-2027 学年校历">
+      <img src="assets/material/calendar.jpg" alt="学年校历"><figcaption>📅 学年校历</figcaption>
+    </figure>
+    <figure class="info-card" data-zoom data-src="assets/material/shuttle.jpg" data-caption="校车时刻表（南-北 / 南-月亮岛）">
+      <img src="assets/material/shuttle.jpg" alt="校车时刻表"><figcaption>🚌 校车时刻表</figcaption>
+    </figure>
+    <figure class="info-card" data-zoom data-src="assets/material/schedule.jpg" data-caption="上下课时间（夏令/冬令）">
+      <img src="assets/material/schedule.jpg" alt="上下课时间"><figcaption>⏰ 上下课时间</figcaption>
+    </figure>
+  </div>
 </section>
 
 <!-- ==================== 关于华硕校园合伙人 ==================== -->
@@ -319,8 +378,45 @@
   </div>
 </div>
 
+<!-- ==================== 通用图片灯箱 ==================== -->
+<div id="imageLightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="图片查看" style="display:none;">
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="关闭" type="button">&times;</button>
+    <img id="imageLightboxImg" src="" alt="">
+    <p id="imageLightboxCap" class="lb-caption"></p>
+  </div>
+</div>
+
 <script src="js/data.js"></script>
 <script src="js/shared.js"></script>
 <script src="js/main.js"></script>
+<script>
+(function(){
+  var ov = document.getElementById('imageLightbox');
+  if(!ov) return;
+  var ovImg = document.getElementById('imageLightboxImg');
+  var ovCap = document.getElementById('imageLightboxCap');
+  function openImg(src, cap){
+    ovImg.src = src; ovCap.textContent = cap || ''; ov.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImg(){ ov.style.display = 'none'; document.body.style.overflow = ''; }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-zoom]');
+    if (t) {
+      var img = (t.tagName === 'IMG') ? t : (t.querySelector('img') || t);
+      var src = t.getAttribute('data-src') || (img && img.src) || '';
+      var cap = t.getAttribute('data-caption') || (img && img.alt) || '';
+      openImg(src, cap);
+      e.preventDefault();
+      return;
+    }
+    if (e.target === ov || (e.target.classList && e.target.classList.contains('lightbox-close'))) {
+      closeImg();
+    }
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeImg(); });
+})();
+</script>
 </body>
 </html>
