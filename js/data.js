@@ -7,7 +7,7 @@
 
 const STORAGE_PREFIX='hutb_campus_';
 const VERSION_KEY=STORAGE_PREFIX+'version';
-const CURRENT_VERSION='1.3.3';
+const CURRENT_VERSION='1.3.4';
 
 /* ===================== 默认食堂数据 ===================== */
 const DEFAULT_FOOD=[
